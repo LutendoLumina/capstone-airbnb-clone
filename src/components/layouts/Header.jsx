@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import airbnbLogo from "../../assets/airbnb-logo.svg";
 import { FaSearch } from "react-icons/fa";
 import { IoMenuOutline } from "react-icons/io5";
@@ -6,6 +7,7 @@ import "./Header.css";
 
 export default function Header({ user, onLogout }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -15,7 +17,9 @@ export default function Header({ user, onLogout }) {
     <div className="navbar">
       {/* Logo Section */}
       <div className="logo">
-        <img src={airbnbLogo} alt="Airbnb" />
+        <Link to={user ? "/listings" : "/"}>
+          <img src={airbnbLogo} alt="Airbnb" />
+        </Link>
       </div>
 
       {/* Search section*/}
@@ -41,33 +45,34 @@ export default function Header({ user, onLogout }) {
             {/* Dropdown Menu */}
             {isDropdownOpen && (
               <div className="dropdown_menu">
-                <a
-                  href="#listings"
+                <Link
+                  to="/listings"
                   className="dropdown_item"
                   onClick={() => setIsDropdownOpen(false)}
                 >
                   View Listings
-                </a>
-                <a
-                  href="#reservations"
+                </Link>
+                <Link
+                  to="/reservations"
                   className="dropdown_item"
                   onClick={() => setIsDropdownOpen(false)}
                 >
                   View Reservations
-                </a>
-                <a
-                  href="#create_listing"
+                </Link>
+                <Link
+                  to="/create-listing"
                   className="dropdown_item"
                   onClick={() => setIsDropdownOpen(false)}
                 >
                   Create Listing
-                </a>
+                </Link>
                 <hr />
                 <button
                   className="dropdown_item logout_btn"
                   onClick={() => {
                     onLogout();
                     setIsDropdownOpen(false);
+                    navigate("/");
                   }}
                 >
                   Log Out
@@ -81,9 +86,9 @@ export default function Header({ user, onLogout }) {
             <a href="#become_host" className="become_host_link">
               Become a host
             </a>
-            <a href="#login" className="login_btn">
+            <Link to="/" className="login_btn">
               Log In
-            </a>
+            </Link>
           </div>
         )}
       </div>

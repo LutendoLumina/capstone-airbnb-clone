@@ -1,0 +1,158 @@
+.listings_container {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 0 20px;
+  font-family: sans-serif;
+}
+
+.listings_container h2 {
+  color: #222222;
+  margin-bottom: 25px;
+}
+
+/* Flex responsive cards grid container */
+.listings_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.listing_card {
+  border: 1px solid #dddddd;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+  transition: transform 0.2s, box-shadow 0.2s;
+  background: white;
+}
+
+.listing_card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+/* Image wrapper styling */
+.card_image_wrapper {
+  position: relative;
+  height: 200px;
+  background-color: #f7f7f7;
+}
+
+.card_image_wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.property_type_badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: white;
+  padding: 4px 10px;
+  border-radius: 14px;
+  font-size: 11px;
+  font-weight: bold;
+  color: #222222;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Text elements content blocks */
+.card_content {
+  padding: 16px;
+}
+
+.property_title {
+  margin: 0 0 6px 0;
+  font-size: 16px;
+  color: #222222;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.property_location {
+  margin: 0 0 10px 0;
+  font-size: 13px;
+  color: #717171;
+}
+
+.property_specs {
+  margin: 0 0 12px 0;
+  font-size: 13px;
+  color: #222222;
+}
+
+/* Pill tags for checked amenities display */
+.card_amenities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+  height: 26px; /* standard single line row height constraint */
+  overflow: hidden;
+}
+
+.amenity_tag {
+  background: #f7f7f7;
+  font-size: 11px;
+  color: #484848;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid #e4e4e4;
+}
+
+/* Footer structure holding parameters and buttons */
+.card_footer {
+  border-top: 1px solid #eee;
+  padding-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.property_price {
+  margin: 0;
+  font-size: 14px;
+  color: #222222;
+}
+
+/* Admin CRUD Controls */
+.admin_actions {
+  display: flex;
+  gap: 8px;
+}
+
+.action_btn {
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+}
+
+.update_btn {
+  background-color: #222222;
+  color: white;
+}
+
+.update_btn:hover {
+  background-color: #444444;
+}
+
+.delete_btn {
+  background-color: #fff0f0;
+  color: #c13515;
+  border: 1px solid #ffdad5;
+}
+
+.delete_btn:hover {
+  background-color: #ffdad5;
+}
+
+.no_listings {
+  text-align: center;
+  color: #717171;
+  margin-top: 40px;
+}
