@@ -1,0 +1,92 @@
+.form_container {
+  max-width: 850px;
+  margin: 30px auto;
+  padding: 25px;
+  border: 1px solid #dddddd;
+  border-radius: 12px;
+  font-family: sans-serif;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  background-color: aliceblue;
+}
+
+.form_container h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #222222;
+}
+
+.form_group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.form_group label {
+  font-size: 13px;
+  font-weight: bold;
+  color: #444444;
+}
+
+.form_group input, 
+.form_group textarea, 
+.form_group select {
+  padding: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.form_group textarea {
+  height: 70px;
+  resize: vertical;
+}
+
+.form_row {
+  display: flex;
+  gap: 12px;
+}
+
+.amenities_section {
+  margin: 15px 0;
+}
+
+.section_title {
+  font-size: 13px;
+  font-weight: bold;
+  color: #444444;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.checkbox_grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.checkbox_grid label {
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.submit_btn {
+  background-color: #ff385c;
+  color: white;
+  border: none;
+  padding: 12px;
+  width: 100%;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.submit_btn:hover {
+  background-color: #e01541;
+}
