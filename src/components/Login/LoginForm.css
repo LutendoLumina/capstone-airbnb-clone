@@ -1,45 +1,58 @@
-/* Center the form on screen */
-.login-box {
+.login_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+  font-family: sans-serif;
+  background-color: white;
+}
+
+.login_card {
+  width: 100%;
   max-width: 400px;
-  margin: 60px auto;
   padding: 30px;
   border: 1px solid #dddddd;
   border-radius: 12px;
-  font-family: sans-serif;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.login-box h2 {
+.login_card h2 {
   margin-top: 0;
   margin-bottom: 20px;
   color: #222222;
 }
 
-/* Form inputs styling */
-.login-box form {
+.form_group {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 6px;
+  margin-bottom: 15px;
 }
 
-.login-box input {
+.form_group label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #444444;
+}
+
+.form_group input {
   padding: 12px;
   border: 1px solid #cccccc;
   border-radius: 8px;
   font-size: 14px;
 }
 
-.login-box input:focus {
+.form_group input:focus {
   border-color: #ff385c;
   outline: none;
 }
 
-/* Bright pink login button */
-.login-box button {
+.login_submit_btn {
   background-color: #ff385c;
   color: white;
   border: none;
   padding: 12px;
+  width: 100%;
   border-radius: 8px;
   font-size: 16px;
   font-weight: bold;
@@ -47,15 +60,15 @@
   margin-top: 10px;
 }
 
-.login-box button:hover {
+.login_submit_btn:hover {
   background-color: #e01541;
 }
 
-/* Error text alert styling */
-.error-msg {
-  color: #d32f2f;
-  background-color: #ffeede;
+.error_msg {
+  color: #c13515;
+  background-color: #fff8f6;
   padding: 10px;
+  border: 1px solid #ffeedb;
   border-radius: 6px;
   font-size: 13px;
   margin-bottom: 15px;

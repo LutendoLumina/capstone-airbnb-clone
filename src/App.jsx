@@ -1,35 +1,25 @@
 import React, { useState } from "react";
 import Header from "../src/components/layouts/Header";
+import LoginForm from "../src/components/Login/LoginForm";
 
 export default function App() {
-  // Fake state just to test our header component views
-  const [testUser, setTestUser] = useState(null);
-
-  const handleFakeLogin = () => {
-    setTestUser({ username: "Lutendo" });
-  };
-
-  const handleFakeLogout = () => {
-    setTestUser(null);
-  };
+  const [currentUser, setCurrentUser] = useState(null);
 
   return (
     <div>
-      {/* Our single completed feature */}
-      <Header user={testUser} onLogout={handleFakeLogout} />
-
-      {/* Temporary switch at the bottom of the page just to test both views */}
-      <div style={{ marginTop: "100px", textAlign: "center" }}>
-        <p>Current View: <b>{testUser ? "Admin View (Logged In)" : "Guest View (Logged Out)"}</b></p>
-        
-        {!testUser ? (
-          <button onClick={handleFakeLogin} style={{ padding: "10px 20px", cursor: "pointer" }}>
-            Switch to Admin View
-          </button>
+      {/* Header updates dynamically based on currentUser state */}
+      <Header user={currentUser} onLogout={() => setCurrentUser(null)} />
+      
+      <main style={{ padding: "20px" }}>
+        {currentUser ? (
+          <div style={{ textAlign: "center", marginTop: "50px" }}>
+            <h1>Welcome back, {currentUser.username}!</h1>
+            <p>Use the Header dropdown menu to log out and test the form again.</p>
+          </div>
         ) : (
-          <p>Click "Log Out" inside the header menu dropdown to switch back!</p>
+          <LoginForm onLoginSuccess={(userData) => setCurrentUser(userData)} />
         )}
-      </div>
+      </main>
     </div>
   );
 }

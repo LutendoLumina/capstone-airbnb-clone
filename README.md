@@ -1,16 +1,13 @@
-# React + Vite
+# Airbnb Admin Dashboard Clone — Frontend Phase 1
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is an Admin Dashboard for an Airbnb clone built using React. 
 
-Currently, two official plugins are available:
+## Features Completed
+* **Top Header Navigation:** Includes the logo placeholder, an interactive search button placeholder, and a dynamic profile menu toggle that shifts options depending on user states.
+* **Inline Client-Side Validation:** Form handlers watch for input shape alignment (proper email structure check, password minimum length threshold).
+* **Mock State Authentication Routing:** Uses local React state parameters to simulate logging in with an admin account (`admin@airbnb.com` / `password123`) to transform the user workspace interface instantly.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech Stack Installed
+* **Frontend Library:** React.js
+* **Icon Packs:** `react-icons` (FontAwesome, Ionicons)
+* **Styling approach:** Pure Vanilla CSS
