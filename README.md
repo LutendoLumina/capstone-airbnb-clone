@@ -1,41 +1,43 @@
-# Airbnb Admin Dashboard Clone — Frontend Phase
+# Airbnb Admin Dashboard Clone
 
-This project is an Admin Dashboard for an Airbnb clone built using React and organized into clean development features.
+This repository contains the full-stack architecture for an Airbnb Admin Dashboard clone, featuring an interactive React frontend and an object-oriented Node.js/TypeScript backend backend server layer backed by MongoDB Atlas.
 
-## Features Completed
-* **Top Header Navigation Feature:** Includes the logo, an interactive search button placeholder, and a dynamic profile menu toggle that shifts options depending on user states.
-* **Log In Feature:** Handles client-side validation checks (proper email structure and password length threshold) before routing to the workspace panel via dummy credentials (`admin@airbnb.com` / `password123`).
-* **Create Listing Feature:** A comprehensive property form panel containing inputs capturing titles, prices, descriptions, metrics (bedrooms, bathrooms, max guests), separate extra pricing lines (cleaning fees, service fees, occupancy taxes, weekly discounts), and checked amenities options.
-* **View Listings Feature:** Displays created properties in a clean, responsive card layout grid complete with administrative action control buttons to simulate updating or deleting specific listings.
-* **Client-Side Routing Engine:** Integrated `react-router-dom` to manage multi-page browser states cleanly (`/`, `/listings`, `/create-listing`) without causing browser hard re-loads.
+---
 
-# Database Layer Phase
+## System Architecture & Data Flow
 
-This project is an Admin Dashboard for an Airbnb clone built using React for the frontend and Node/TypeScript for the backend data schemas.
+Data flows seamlessly across the three tiers of the application:
+Frontend (React/Vite) ↔ Backend API (Node/TypeScript) ↔ Database Layer (MongoDB Atlas)
+
+---
 
 ## Features & Progress Completed
-* **Unified Database Architecture:** Designed a unified MongoDB schema structure using Mongoose to manage authentication roles (`type: "admin"` vs `"customer"`), status logs, and verification fields seamlessly under a single collection.
-* **Property Blueprint Schema:** Formulated a clean database model mapping all inputs captured by the listing creation forms (pricing metrics, room configurations, and checkable amenities arrays).
-* **Fully Formatted TypeScript Types:** Structured data layers with robust Node/TypeScript compiler tracking parameters.
-* **Client-Side Routing Engine:** Integrated `react-router-dom` to manage multi-page browser states cleanly (`/`, `/listings`, `/create-listing`).
 
+### 1. Frontend Phase (Admin UI)
+* **Top Header Navigation:** Features responsive layout branding, placeholder search triggers, and dynamic profile action toggles shifting options based on session state.
+* **Authentication UI Gate:** Client-side validation handling proper email formats and password lengths before routing to dashboard panels via mock sessions.
+* **Create Listing Module:** Detailed property entry capturing baseline metrics (titles, configurations, max guests), variable fee calculations (cleaning/service metrics, weekly discounts), and checkable feature arrays.
+* **View Listings Engine:** Dynamic, responsive card layouts rendering created assets equipped with admin control vectors for editing/deleting simulation.
+* **Client-Side Router:** Integrated `react-router-dom` (v6+) for single-page browser history handling without triggering native page updates.
 
-# Airbnb Admin Dashboard — (Backend Server Layer) Phase
+### 2. Database & Schema Layer
+* **Unified Identity Architecture:** Single-collection Mongoose data schema mapping authentication privileges (`admin` vs `customer`), logging tracking parameters, and authorization states.
+* **Property Blueprint Schema:** Flattened model mapping database entry requirements directly to form parameters (pricing arrays, configurations, amenities fields).
+* **Strict Interface Compilation:** Integrated comprehensive Node/TypeScript interface abstractions guarding compile-time validity across properties and schemas.
 
-## Features & Progress Completed
-* **Unified Database Architecture:** Designed a single-collection Mongoose schema to manage user permissions (`type: "admin"` vs `"customer"`) and verification states under a streamlined structure.
-* **Property Blueprint Schema:** Created a flat database model mapping input fields captured by listing creation forms (pricing, parameters, and amenities arrays).
-* **Object-Oriented Server Framework:** Structured `server.ts` into a clean, modular `Server` class managing isolated cycles for initialization, routing gates, and global exception intercepts.
-* **Lightweight Application Bootstrapper:** Built a simple `index.ts` entry file acting as the baseline process listener executing on local port environments.
-* **Operational Health Gateway:** Wired an initial `/api/health` API testing checkpoint to successfully verify server compiles and routes incoming traffic cleanly.
+### 3. Backend Server Layer & Connection Engine
+* **Object-Oriented Lifecycle:** Modular `Server` class framework handling separate app configurations, endpoint routing, and global exception interceptors.
+* **Operational Health Checks:** Live `/api/health` testing path tracking clean backend runtime execution.
+* **Dynamic Environment Injection:** Fixed module loading race conditions by transitioning plain configuration objects into executable Arrow Functions. This defers variable lookups until *after* the application bootstrapper loads root `.env` values.
+* **DNS Resolution Override:** Bypassed local network ISP firewalls and SRV lookup drop failures (`querySrv ECONNREFUSED`) by coupling Node's native `dns` module with **Google Public DNS (`8.8.8.8` / `8.8.4.4`)** at the absolute start of the application.
 
+---
 
-## Tech Stack Used
-* **Frontend:** React.js (Vite Tooling)
-* **Routing Library:** `react-router-dom` (v6+)
-* **Icon Packs:** `react-icons` (FontAwesome, Ionicons)
-* **Styling approach:** Pure Vanilla CSS
-
-* **Backend Object Modeling:** Mongoose / MongoDB
-* **Backend Runtime:** Node.js with TypeScript support
-* **API Development Partner:** Postman Client Agent
+## 💻 Tech Stack
+* **Frontend UI Engine:** React.js via Vite compilation
+* **Browser State Controller:** `react-router-dom` (v6+)
+* **Icon UI Packs:** `react-icons` (FontAwesome, Ionicons)
+* **Design Implementation:** Pure Vanilla CSS
+* **Database Object Modeling:** Mongoose ORM / MongoDB Atlas
+* **Server Runtime:** Node.js + TypeScript Compilation
+* **API Validation Agent:** Postman Client Testing Suite
