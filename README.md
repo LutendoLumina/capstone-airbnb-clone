@@ -20,12 +20,22 @@ This project is an Admin Dashboard for an Airbnb clone built using React for the
 * **Client-Side Routing Engine:** Integrated `react-router-dom` to manage multi-page browser states cleanly (`/`, `/listings`, `/create-listing`).
 
 
-## Tech Stack Installed
-* **Frontend Framework:** React.js (Vite Tooling)
+# Airbnb Admin Dashboard — (Backend Server Layer) Phase
+
+## Features & Progress Completed
+* **Unified Database Architecture:** Designed a single-collection Mongoose schema to manage user permissions (`type: "admin"` vs `"customer"`) and verification states under a streamlined structure.
+* **Property Blueprint Schema:** Created a flat database model mapping input fields captured by listing creation forms (pricing, parameters, and amenities arrays).
+* **Object-Oriented Server Framework:** Structured `server.ts` into a clean, modular `Server` class managing isolated cycles for initialization, routing gates, and global exception intercepts.
+* **Lightweight Application Bootstrapper:** Built a simple `index.ts` entry file acting as the baseline process listener executing on local port environments.
+* **Operational Health Gateway:** Wired an initial `/api/health` API testing checkpoint to successfully verify server compiles and routes incoming traffic cleanly.
+
+
+## Tech Stack Used
+* **Frontend:** React.js (Vite Tooling)
 * **Routing Library:** `react-router-dom` (v6+)
 * **Icon Packs:** `react-icons` (FontAwesome, Ionicons)
 * **Styling approach:** Pure Vanilla CSS
 
-* **Frontend Framework:** React.js (Vite Tooling)
 * **Backend Object Modeling:** Mongoose / MongoDB
-* **Language Runtime:** Node.js with TypeScript support
+* **Backend Runtime:** Node.js with TypeScript support
+* **API Development Partner:** Postman Client Agent
