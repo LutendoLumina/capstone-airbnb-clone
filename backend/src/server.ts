@@ -1,9 +1,11 @@
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import * as mongoose from "mongoose";
 import { getEnviromentVariables } from "./enviroments/enviroment";
 import { Utils } from "./utils/Utils";
-import UserRouters from "./routers/UserRouters";
 import * as bodyParser from "body-parser";
+import cors from "cors";
+import UserRouters from "./routers/UserRouters";
+
 
 export class Server {
   public app = express();
@@ -49,7 +51,7 @@ export class Server {
   }
 
   allowCors() {
-    // Will handle CORS later
+    this.app.use(cors({ origin: 'http://localhost:5173' }));
   }
 
   setRoutes() {
@@ -57,10 +59,26 @@ export class Server {
   }
 
   handlerErrors() {
-    // Will handle global errors later
+    this.app.use(
+      (error: Error, req: Request, res: Response, next: NextFunction) => {
+        console.error("Error caught by global handler:", error.message);
+
+        const errorStatus = (error as any).errorStatus || 500;
+        res.status(errorStatus).json({
+          message: error.message || "Something went wrong. Please try again",
+          status_code: errorStatus,
+        });
+      },
+    );
   }
 
   error404Handler() {
-    // Will handle 404s later
+    // this.app.use((req, res) => {
+    //   console.log("404 Not Found:", req.method, req.path);
+    //   res.status(404).json({
+    //     message: "Not found",
+    //     status_code: 404,
+    //   });
+    // });
   }
 }

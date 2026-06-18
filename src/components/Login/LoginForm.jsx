@@ -1,49 +1,67 @@
 import React, { useState } from "react";
+import {useNavigate} from 'react-router-dom';
 import "./LoginForm.css";
 
 export default function LoginForm({ onLoginSuccess }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
-    // 1. Front-end Validation Checks
-    if (!email.includes("@")) {
-      setError("Please enter a valid email address.");
-      return;
-    }
-    if (password.length < 6) {
-      setError("Password must be at least 6 characters long.");
-      return;
+    try {
+      //  Fire the network request to backend
+      const response = await fetch('http://localhost:3000/api/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({email, password}),
+      })
+
+      const data = await response.json();
+
+      if(!response.ok) {
+        // Captures backend errors like "Email is required"
+        throw new Error(data.message || data.errors?.[0] || 'Login failed');
+      }
+
+      // Success! Save the JWT token and user info to localStorage
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+
+      // Redirect to the admin dashboard
+      navigate('/dashboard')
+
+    } catch(err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
 
-    // 2. The Trick: Use "fake" data to simulate a successful login
-    if (email === "admin@airbnb.com" && password === "password123") {
-      // Pass fake user data up to App.jsx to change the Header state
-      onLoginSuccess({ username: "Lutendo" });
-    } else {
-      setError("Invalid email or password. Use admin@airbnb.com / password123");
-    }
   };
 
   return (
     <div className="login_container">
       <div className="login_card">
-        <h2>Log In</h2>
+        <h2>Admin Login</h2>
         
         {error && <p className="error_msg">{error}</p>}
         
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleLogin}>
           <div className="form_group">
             <label>Email Address</label>
             <input 
               type="email" 
-              placeholder="name@example.com" 
+              placeholder="Email Address" 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
 
@@ -51,14 +69,15 @@ export default function LoginForm({ onLoginSuccess }) {
             <label>Password</label>
             <input 
               type="password" 
-              placeholder="••••••••" 
+              placeholder="Password" 
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </div>
 
-          <button type="submit" className="login_submit_btn">
-            Sign In
+          <button type="submit" disabled={loading} className="login_submit_btn">
+            {loading ? 'Authenticating...' : 'Sign In'}
           </button>
         </form>
       </div>

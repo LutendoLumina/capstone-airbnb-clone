@@ -38,6 +38,13 @@ Frontend (React/Vite) ↔ Backend API (Node/TypeScript) ↔ Database Layer (Mong
 * **Robust Role-Based Middleware:** Integrated a `GlobalMiddleware` layer featuring automated Express error catchers (`validationResult`) and strict role guard checks (`adminRole`) to gracefully reject unauthorized sessions or unparsed request objects with clean HTTP status codes.
 * **Stateful JWT Session Tokens:** Engineered a token generation pipeline using `jsonwebtoken` to stamp out signed authentication tickets (`Jwt.jwtSign`) loaded with user permissions, alongside structural camelCase time-tracking maps (`createdAt` / `updatedAt`) fed smoothly to the client dashboard.
 
+### 5. Frontend to Backend Integration Bridge
+The client-side React authentication view establishes a direct HTTP network handshake with the Express API service using the native browser `fetch` stream handler. 
+
+* **State Initialization:** Manages isolated reactive states for tracking form payload targets (`email`, `password`), interactive submission processing triggers (`loading`), and descriptive API constraint handling (`error`).
+* **Session Persistence Layer:** Upon encountering a verified matching payload layout, the interface extracts the signed JSON Web Token (JWT) string and the associated `user` object data context from the response stream, preserving them securely inside the browser's persistent storage engine (`localStorage`).
+* **Route Re-direction Lifecycle:** Once permission states are confirmed, the component accesses browser context through the `react-router-dom` utility hook (`useNavigate`) to smoothly transfer view control straight into the administration portal array.
+
 ---
 
 ## 🔐 Administrative Authentication & Seeding
