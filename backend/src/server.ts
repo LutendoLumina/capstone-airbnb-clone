@@ -2,6 +2,8 @@ import express from "express";
 import * as mongoose from "mongoose";
 import { getEnviromentVariables } from "./enviroments/enviroment";
 import { Utils } from "./utils/Utils";
+import UserRouters from "./routers/UserRouters";
+import * as bodyParser from "body-parser";
 
 export class Server {
   public app = express();
@@ -31,7 +33,7 @@ export class Server {
 
   connectMongoDB() {
     const dbUri = getEnviromentVariables().db_uri;
-    
+
     mongoose
       .connect(dbUri)
       .then(() => console.log("Connected to mongodb"))
@@ -42,8 +44,8 @@ export class Server {
   }
 
   configureBodyParser() {
-    // Will handle parsing later
-    this.app.use(express.json());
+    this.app.use(bodyParser.urlencoded({ extended: true }));
+    this.app.use(bodyParser.json());
   }
 
   allowCors() {
@@ -51,13 +53,7 @@ export class Server {
   }
 
   setRoutes() {
-    // Will handle routing gates later
-    this.app.get("/api/health", (req, res) => {
-      res.status(200).json({
-        status: "healthy",
-        message: "Backend glue is connected and responding cleanly!",
-      });
-    });
+    this.app.use("/api/user", UserRouters);
   }
 
   handlerErrors() {

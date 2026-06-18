@@ -31,6 +31,76 @@ Frontend (React/Vite) ↔ Backend API (Node/TypeScript) ↔ Database Layer (Mong
 * **Dynamic Environment Injection:** Fixed module loading race conditions by transitioning plain configuration objects into executable Arrow Functions. This defers variable lookups until *after* the application bootstrapper loads root `.env` values.
 * **DNS Resolution Override:** Bypassed local network ISP firewalls and SRV lookup drop failures (`querySrv ECONNREFUSED`) by coupling Node's native `dns` module with **Google Public DNS (`8.8.8.8` / `8.8.4.4`)** at the absolute start of the application.
 
+### 4. Secure Authentication Pipeline (Admin Login Backend)
+* **Cryptographic Secret Key Utility:** Custom random key generation utility using Node's native `crypto` module to output 32-byte hexadecimal random keys (`crypto.randomBytes(32).toString('hex')`) ensuring un-brute-forceable JWT signing.
+* **Bcrypt Hashing Integration:** Implemented asynchronous password protection via `bcrypt` to securely handle mathematical validation checks (`bcrypt.compare`) during the login handshake without storing or transmitting credentials in plaintext.
+* **Server-Side Validation Gates:** Built an automated request interceptor using `express-validator` to scrub incoming request bodies, enforce strict email structures, validate password bounds, and query database contexts before allowing controller access.
+* **Robust Role-Based Middleware:** Integrated a `GlobalMiddleware` layer featuring automated Express error catchers (`validationResult`) and strict role guard checks (`adminRole`) to gracefully reject unauthorized sessions or unparsed request objects with clean HTTP status codes.
+* **Stateful JWT Session Tokens:** Engineered a token generation pipeline using `jsonwebtoken` to stamp out signed authentication tickets (`Jwt.jwtSign`) loaded with user permissions, alongside structural camelCase time-tracking maps (`createdAt` / `updatedAt`) fed smoothly to the client dashboard.
+
+---
+
+## 🔐 Administrative Authentication & Seeding
+
+To safeguard administrative privileges, accounts are pre-seeded directly into the MongoDB Atlas cluster rather than exposing public registration pipelines.
+
+### 1. Database Configuration
+Ensure your local `backend/.env` file is active and configured correctly. **Note:** This file is explicitly blocked by `.gitignore` to prevent credential exposure:
+
+```env
+PORT=3000
+DEV_DB_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/airbnb
+JWT_SECRET=your_cryptographic_secret_key_here
+```
+
+### 2. Seeding the Administrator Account
+To instantly instantiate the primary administrator profile (Jane Doe) with a securely hashed password inside your cloud cluster, execute the standalone database seed runner:
+
+```
+# Navigate to the backend directory
+cd backend
+
+# Execute the TypeScript seeder script
+npx ts-node src/seedAdmin.ts
+```
+
+
+### 3. Administrative Credentials for Testing
+Once the database logs show a successful seeding handshake, use the following body payload parameters inside Postman or your Frontend Login Form to authenticate:
+
+* **HTTP Method:** POST
+
+* **Endpoint:** http://localhost:3000/api/users/login
+
+* **Headers:** Content-Type: application/json
+
+* **JSON Body Payload:**
+
+JSON
+{
+  "email": "admin@airbnb.com",
+  "password": "password123"
+}
+
+
+### 4. API Response Structure
+Upon approval by the validation and role middlewares, the endpoint returns a 200 OK response payload containing the user's details and the signed JWT token:
+
+JSON
+{
+  "success": true,
+  "message": "User logged in successfully",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5c...",
+  "user": {
+    "username": "Jane Doe",
+    "email": "admin@airbnb.com",
+    "type": "admin",
+    "status": "active",
+    "created_at": "2026-06-19T00:15:30.000Z",
+    "updated_at": "2026-06-19T00:15:30.000Z"
+  }
+}
+
 ---
 
 ## 💻 Tech Stack
@@ -40,4 +110,5 @@ Frontend (React/Vite) ↔ Backend API (Node/TypeScript) ↔ Database Layer (Mong
 * **Design Implementation:** Pure Vanilla CSS
 * **Database Object Modeling:** Mongoose ORM / MongoDB Atlas
 * **Server Runtime:** Node.js + TypeScript Compilation
+* **Authentication Utilities:** bcrypt, jsonwebtoken, express-validator
 * **API Validation Agent:** Postman Client Testing Suite
