@@ -5,6 +5,7 @@ import { Utils } from "./utils/Utils";
 import * as bodyParser from "body-parser";
 import cors from "cors";
 import UserRouters from "./routers/UserRouters";
+import ListingRouters from "./routers/ListingRouters";
 
 
 export class Server {
@@ -56,6 +57,7 @@ export class Server {
 
   setRoutes() {
     this.app.use("/api/user", UserRouters);
+    this.app.use("/api/listings", ListingRouters);
   }
 
   handlerErrors() {

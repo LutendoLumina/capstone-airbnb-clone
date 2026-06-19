@@ -45,6 +45,12 @@ The client-side React authentication view establishes a direct HTTP network hand
 * **Session Persistence Layer:** Upon encountering a verified matching payload layout, the interface extracts the signed JSON Web Token (JWT) string and the associated `user` object data context from the response stream, preserving them securely inside the browser's persistent storage engine (`localStorage`).
 * **Route Re-direction Lifecycle:** Once permission states are confirmed, the component accesses browser context through the `react-router-dom` utility hook (`useNavigate`) to smoothly transfer view control straight into the administration portal array.
 
+### 6. Advanced Multipart Accommodation Listing Engine
+* **Multer Storage Architecture:** Implemented file stream handling via a local native `multer.diskStorage` engine pipeline to automatically isolate, uniquely suffix timestamp hash names, and map incoming property media straight into a structured static uploads folder tree (`src/uploads/images`).
+* **Inline Interceptor Sanitization:** Resolved `multipart/form-data` array conversion traps by routing a custom inline sanitization middleware ahead of validation blocks. This transparently decodes raw text layout brackets (`"["Wifi","Pool"]"`) into validated native JavaScript string arrays before schema processing.
+* **Targeted Request Body Overwrites:** Overwrote request fields dynamically inside custom express-validator handlers to match incoming multi-file uploads natively, effectively bypassing default `Unexpected field` tracking failures.
+* **Resilient Relational Mapping:** Anchored strict data associations automatically during listing generation by routing the verified JWT payload target references (`req.user.aud`) down into the Mongoose document model data wrapper (`createdBy`).
+
 ---
 
 ## 🔐 Administrative Authentication & Seeding
@@ -119,3 +125,4 @@ JSON
 * **Server Runtime:** Node.js + TypeScript Compilation
 * **Authentication Utilities:** bcrypt, jsonwebtoken, express-validator
 * **API Validation Agent:** Postman Client Testing Suite
+* **Multipart File Handling:** Multer Storage Middleware
