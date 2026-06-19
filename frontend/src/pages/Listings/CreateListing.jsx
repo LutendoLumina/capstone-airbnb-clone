@@ -278,7 +278,7 @@ export default function CreateListing() {
             <label>
               <input
                 type="checkbox"
-                value="Air conditioning"
+                value="Air Conditioning"
                 checked={amenities.includes("Air Conditioning")}
                 onChange={handleAmenityChange}
               />{" "}

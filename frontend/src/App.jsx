@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Header from "../src/components/layouts/Header";
-import LoginForm from "../src/components/Login/LoginForm";
 import CreateListing from "./pages/Listings/CreateListing";
 import ViewListings from "./pages/Listings/ViewListings";
+import LoginPage from "./pages/Login/LoginPage";
 
 export default function App() {
 
@@ -33,7 +33,7 @@ export default function App() {
               currentUser ? (
                 <Navigate to="/listings" replace/>
               ) : (
-                <LoginForm onLoginSuccess={handleLoginSuccess} />
+                <LoginPage onLoginSuccess={handleLoginSuccess} />
               )
             }
           />
