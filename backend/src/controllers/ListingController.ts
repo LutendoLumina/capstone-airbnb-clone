@@ -102,4 +102,48 @@ export class ListingController {
       next(error);
     }
   }
+
+  static async updateListing(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const listing = req.body;
+
+      const updatedData: any = { ...req.body };
+
+      const files = req.files as Express.Multer.File[];
+
+      if (req.body.bedrooms) updatedData.bedrooms = parseInt(req.body.bedrooms);
+      if (req.body.bathrooms)
+        updatedData.bathrooms = parseInt(req.body.bathrooms);
+      if (req.body.guests) updatedData.guests = parseInt(req.body.guests);
+      if (req.body.base_price)
+        updatedData.base_price = parseFloat(req.body.base_price);
+      if (req.body.cleaning_fee)
+        updatedData.cleaning_fee = parseFloat(req.body.cleaning_fee);
+      if (req.body.service_fee)
+        updatedData.service_fee = parseFloat(req.body.service_fee);
+
+      if (files && files.length > 0) {
+        updatedData.images = files.map((file) => file.path);
+      }
+
+      const listingDoc = await Listing.findByIdAndUpdate(id, updatedData, {
+        new: true,
+        runValidators: true,
+      });
+
+      if (!listingDoc) {
+        res.status(404);
+        throw new Error("Accommodation listing not found.");
+      }
+
+      res.status(200).json({
+        success: true,
+        message: "Accommodation listing updated successfully",
+        data: listingDoc,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

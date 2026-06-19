@@ -64,7 +64,29 @@ class ListingRouters {
 
   patchRoutes() {}
 
-  putRoutes() {}
+  putRoutes() {
+    this.router.put(
+      "/update/:id",
+      GlobalMiddleware.auth,
+      new Utils().multer.array("images", 5),
+      (req: Request, res: Response, next: NextFunction) => {
+        if (typeof req.body.amenities === "string") {
+          try {
+            req.body.amenities = JSON.parse(req.body.amenities);
+          } catch (e) {
+            req.body.amenities = req.body.amenities
+              .split(",")
+              .map((s: string) => s.trim());
+          }
+        }
+        next();
+      },
+      ListingValidator.updateListingValidator(),
+      GlobalMiddleware.checkError,
+      (req: Request, res: Response, next: NextFunction) =>
+        ListingController.updateListing(req, res, next),
+    );
+  }
 
   deleteRoutes() {
     this.router.delete(
