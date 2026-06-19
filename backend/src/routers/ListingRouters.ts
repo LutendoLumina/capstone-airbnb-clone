@@ -66,7 +66,14 @@ class ListingRouters {
 
   putRoutes() {}
 
-  deleteRoutes() {}
+  deleteRoutes() {
+    this.router.delete(
+      "/delete/:id",
+      GlobalMiddleware.auth,
+      (req: Request, res: Response, next: NextFunction) =>
+        ListingController.deleteListing(req, res, next),
+    );
+  }
 }
 
 export default new ListingRouters().router;

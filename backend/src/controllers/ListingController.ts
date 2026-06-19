@@ -81,4 +81,25 @@ export class ListingController {
       next(error);
     }
   }
+
+  static async deleteListing(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+
+      const deletedListing = await Listing.findByIdAndDelete(id);
+
+      if (!deletedListing) {
+        res.status(404);
+        throw new Error("Accommodation listing not found or already deleted.");
+      }
+
+      res.status(200).json({
+        success: true,
+        message: "Accommodation listing deleted successfully",
+        data: deletedListing,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

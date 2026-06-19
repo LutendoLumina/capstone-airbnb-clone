@@ -10,16 +10,18 @@ export default function ViewListings() {
   useEffect(() => {
     const fetchListings = async () => {
       try {
-
         const token = localStorage.getItem("token");
 
-        const response = await fetch("http://localhost:3000/api/listings/viewListings", {
-        method: "GET",
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json"
-        }
-      });
+        const response = await fetch(
+          "http://localhost:3000/api/listings/viewListings",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          },
+        );
         const result = await response.json();
 
         if (response.ok) {
@@ -43,12 +45,37 @@ export default function ViewListings() {
     );
   };
 
-  const handleDeleteClick = (id) => {
+  const handleDeleteClick = async (id) => {
     const confirmed = window.confirm(
-      "Are you sure you want to delete this listing?",
+      "Are you sure you want to delete this listing permanently?",
     );
-    if (confirmed) {
-      setListings(listings.filter((item) => item.id !== id));
+    if (!confirmed) return;
+
+    try {
+      const token = localStorage.getItem("token");
+
+      const response = await fetch(
+        `http://localhost:3000/api/listings/delete/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        },
+      );
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert("Success! Listing removed from database.");
+        setListings(listings.filter((item) => item._id !== id));
+      } else {
+        alert(`Deletion Failed: ${result.message}`);
+      }
+    } catch (err) {
+      console.error("Error communicating with delete endpoint:", err);
+      alert("Network communication error. Check server logs.");
     }
   };
 
@@ -56,12 +83,22 @@ export default function ViewListings() {
     if (!imageArray || imageArray.length === 0) {
       return "https://images.unsplash.com/photo-1570129477492-45c003edd2be";
     }
-    const cleanPath = imageArray[0].replace(/\\/g, "/"); 
+    const cleanPath = imageArray[0].replace(/\\/g, "/");
     return `http://localhost:3000/${cleanPath}`;
   };
 
-  if (loading) return <div style={{ padding: "40px", textAlign: "center" }}>Loading Properties...</div>;
-  if (error) return <div style={{ padding: "40px", textAlign: "center", color: "red" }}>Error: {error}</div>;
+  if (loading)
+    return (
+      <div style={{ padding: "40px", textAlign: "center" }}>
+        Loading Properties...
+      </div>
+    );
+  if (error)
+    return (
+      <div style={{ padding: "40px", textAlign: "center", color: "red" }}>
+        Error: {error}
+      </div>
+    );
 
   return (
     <div className="listings_container">
@@ -75,7 +112,6 @@ export default function ViewListings() {
         <div className="listings_grid">
           {listings.map((listing) => (
             <div key={listing._id} className="listing_card">
-
               {/* Property Image Cover */}
               <div className="card_image_wrapper">
                 <img src={getImageUrl(listing.image)} alt={listing.title} />
