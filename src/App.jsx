@@ -6,15 +6,24 @@ import CreateListing from "../src/components/Listings/CreateListing";
 import ViewListings from "./components/Listings/ViewListings";
 
 export default function App() {
-  const [currentUser, setCurrentUser] = useState(null);
+
+  const [currentUser, setCurrentUser] = useState(() => {
+    const savedUser = localStorage.getItem("user");
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
 
   const handleLoginSuccess = (userData) => {
     setCurrentUser(userData);
   };
 
+  const handleLogout = () => {
+    localStorage.clear();
+    setCurrentUser(null);
+  };
+
   return (
     <BrowserRouter>
-      <Header user={currentUser} onLogout={() => setCurrentUser(null)} />
+      <Header user={currentUser} onLogout={handleLogout} />
 
       <main style={{ padding: "10px" }}>
         <Routes>
@@ -22,7 +31,7 @@ export default function App() {
             path="/"
             element={
               currentUser ? (
-                <Navigate to="/listings" />
+                <Navigate to="/listings" replace/>
               ) : (
                 <LoginForm onLoginSuccess={handleLoginSuccess} />
               )
@@ -30,11 +39,11 @@ export default function App() {
           />
           <Route
             path="/listings"
-            element={currentUser ? <ViewListings /> : <Navigate to="/" />}
+            element={currentUser ? <ViewListings /> : <Navigate to="/" replace />}
           />
           <Route
             path="/create-listing"
-            element={currentUser ? <CreateListing /> : <Navigate to="/" />}
+            element={currentUser ? <CreateListing /> : <Navigate to="/" replace />}
           />
         </Routes>
       </main>

@@ -26,12 +26,12 @@ class ListingRouters {
       new Utils().multer.array("images", 5),
 
       // TEMPORARY DEBUG - remove after fixing
-    (req: Request, res: Response, next: NextFunction) => {
-      console.log("FILES:", req.files);
-      console.log("FILE MIMETYPES:", (req.files as any[])?.map(f => f.mimetype));
-      console.log("BODY:", req.body);
-      next();
-    },
+    // (req: Request, res: Response, next: NextFunction) => {
+    //   console.log("FILES:", req.files);
+    //   console.log("FILE MIMETYPES:", (req.files as any[])?.map(f => f.mimetype));
+    //   console.log("BODY:", req.body);
+    //   next();
+    // },
     
       (req: Request, res: Response, next: NextFunction) => {
         if (typeof req.body.amenities === "string") {

@@ -5,9 +5,9 @@ import Listing from "../models/Listing";
 export class ListingController {
   static async createListing(req: any, res: Response, next: NextFunction) {
     try {
-      console.log("--- INSIDE REQ.USER POOL ---");
-      console.log(req.user);
-      console.log("----------------------------");
+      // console.log("--- INSIDE REQ.USER POOL ---");
+      // console.log(req.user);
+      // console.log("----------------------------");
       const listing = req.body;
 
       const files = req.files as Express.Multer.File[];

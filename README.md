@@ -51,6 +51,13 @@ The client-side React authentication view establishes a direct HTTP network hand
 * **Targeted Request Body Overwrites:** Overwrote request fields dynamically inside custom express-validator handlers to match incoming multi-file uploads natively, effectively bypassing default `Unexpected field` tracking failures.
 * **Resilient Relational Mapping:** Anchored strict data associations automatically during listing generation by routing the verified JWT payload target references (`req.user.aud`) down into the Mongoose document model data wrapper (`createdBy`).
 
+### 7. State-Driven Client Routing & Session Persistence
+The authentication flow bridges seamlessly with protected layout modules through synchronized component state management and structural browser path intercepts.
+
+* **Synchronized Session Handshake:** The `LoginForm` processes network payload returns, updates persistent `localStorage` browser engines, and fires structural parent callback notifications (`onLoginSuccess`) to hydrate application state before executing path transitions.
+* **Persistent Session Recovery:** The core initialization layer inspects client-side browser tokens immediately upon engine boot-up via fallback inline functions (`localStorage.getItem("user")`), safeguarding authenticated sessions against data loss during hard page refreshes.
+* **Declarative Navigation Guards:** Protects secure layout panels (`/create-listing`, `/listings`) using reactive conditional route rendering, automatically bouncing unauthenticated sessions back to the root gateway context while transferring administrative clearance straight into the management portal tree.
+
 ---
 
 ## 🔐 Administrative Authentication & Seeding
