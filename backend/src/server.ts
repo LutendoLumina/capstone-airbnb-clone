@@ -4,6 +4,7 @@ import { getEnviromentVariables } from "./enviroments/enviroment";
 import { Utils } from "./utils/Utils";
 import * as bodyParser from "body-parser";
 import cors from "cors";
+import * as path from 'path';
 import UserRouters from "./routers/UserRouters";
 import ListingRouters from "./routers/ListingRouters";
 
@@ -53,6 +54,9 @@ export class Server {
 
   allowCors() {
     this.app.use(cors({ origin: 'http://localhost:5173' }));
+
+    this.app.use('/src/uploads', express.static(path.join(__dirname, 'uploads')));
+
   }
 
   setRoutes() {
