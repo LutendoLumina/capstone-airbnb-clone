@@ -47,4 +47,38 @@ export class ListingController {
       next(error);
     }
   }
+
+  static async getAllListings(req: Request, res: Response, next: NextFunction) {
+    try {
+      // Fetch all listings from MongoDB and sort them by newest first
+      const listings = await Listing.find().sort({ createdAt: -1 });
+
+      res.status(200).json({
+        success: true,
+        results: listings.length,
+        data: listings,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getListingById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const listing = await Listing.findById(id);
+
+      if (!listing) {
+        res.status(404);
+        throw new Error("Accommodation property listing not found.");
+      }
+
+      res.status(200).json({
+        success: true,
+        data: listing,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

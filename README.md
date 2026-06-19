@@ -50,6 +50,7 @@ The client-side React authentication view establishes a direct HTTP network hand
 * **Inline Interceptor Sanitization:** Resolved `multipart/form-data` array conversion traps by routing a custom inline sanitization middleware ahead of validation blocks. This transparently decodes raw text layout brackets (`"["Wifi","Pool"]"`) into validated native JavaScript string arrays before schema processing.
 * **Targeted Request Body Overwrites:** Overwrote request fields dynamically inside custom express-validator handlers to match incoming multi-file uploads natively, effectively bypassing default `Unexpected field` tracking failures.
 * **Resilient Relational Mapping:** Anchored strict data associations automatically during listing generation by routing the verified JWT payload target references (`req.user.aud`) down into the Mongoose document model data wrapper (`createdBy`).
+* **Dynamic Document Feeds (Read Engine):** Formulated public inventory retrieval tracks routing cleanly to specialized aggregation controllers (`GET /api/listings/viewListings`). The pipeline queries active MongoDB documents, arranges them chronologically (`sort({ createdAt: -1 })`), and responds with formatted array streams ready for single-page dashboard rendering loops.
 
 ### 7. State-Driven Client Routing & Session Persistence
 The authentication flow bridges seamlessly with protected layout modules through synchronized component state management and structural browser path intercepts.
