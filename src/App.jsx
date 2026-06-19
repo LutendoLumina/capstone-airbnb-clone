@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Header from "../src/components/layouts/Header";
 import LoginForm from "../src/components/Login/LoginForm";
-import CreateListing from "../src/components/Listings/CreateListing";
-import ViewListings from "./components/Listings/ViewListings";
+import CreateListing from "./pages/Listings/CreateListing";
+import ViewListings from "./pages/Listings/ViewListings";
 
 export default function App() {
 

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
+import EditListingModal from "../../components/modals/EditListingModal";
 import "./ViewListings.css";
 
 export default function ViewListings() {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [editingListing, setEditingListing] = useState(null);
 
-  // FETCH LIVE PROPERTIES FROM database
+  // fetch live properties database
   useEffect(() => {
     const fetchListings = async () => {
       try {
@@ -38,12 +40,6 @@ export default function ViewListings() {
     };
     fetchListings();
   }, []);
-
-  const handleUpdateClick = (id) => {
-    alert(
-      `Update button clicked for Listing ID: ${id}. (We will connect this functionality later!)`,
-    );
-  };
 
   const handleDeleteClick = async (id) => {
     const confirmed = window.confirm(
@@ -79,12 +75,27 @@ export default function ViewListings() {
     }
   };
 
+  const handleUpdateSuccess = (updatedItem) => {
+    setListings(
+      listings.map((item) => {
+        if (item._id === updatedItem._id) {
+          return {
+            ...updatedItem,
+            image: updatedItem.image || updatedItem.images || item.image,
+          };
+        }
+        return item;
+      }),
+    );
+    setEditingListing(null);
+  };
+
   const getImageUrl = (imageArray) => {
     if (!imageArray || imageArray.length === 0) {
       return "https://images.unsplash.com/photo-1570129477492-45c003edd2be";
     }
     const cleanPath = imageArray[0].replace(/\\/g, "/");
-    return `http://localhost:3000/${cleanPath}`;
+    return `http://localhost:3000/${cleanPath}?t=${new Date().getTime()}`;
   };
 
   if (loading)
@@ -145,7 +156,7 @@ export default function ViewListings() {
                   <div className="admin_actions">
                     <button
                       className="action_btn update_btn"
-                      onClick={() => handleUpdateClick(listing._id)}
+                      onClick={() => setEditingListing(listing)}
                     >
                       Update
                     </button>
@@ -161,6 +172,13 @@ export default function ViewListings() {
             </div>
           ))}
         </div>
+      )}
+      {editingListing && (
+        <EditListingModal
+          listing={editingListing}
+          onClose={() => setEditingListing(null)}
+          onUpdateSuccess={handleUpdateSuccess}
+        />
       )}
     </div>
   );

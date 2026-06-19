@@ -1,0 +1,143 @@
+.modal_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modal_container {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 520px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  animation: fadeInModal 0.25s ease-out;
+}
+
+@keyframes fadeInModal {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal_container h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.4rem;
+  color: #222;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.modal_form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal_field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.modal_field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.modal_field input, 
+.modal_field textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition: border 0.2s;
+}
+
+.modal_field input:focus, 
+.modal_field textarea:focus {
+  outline: none;
+  border-color: #ff385c;
+}
+
+.modal_buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.modal_btn {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+  border: none;
+  transition: opacity 0.2s;
+}
+
+.modal_btn:hover {
+  opacity: 0.9;
+}
+
+.btn_dismiss {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.btn_save_changes {
+  background: #ff385c;
+  color: #fff;
+}
+
+.modal_scrollable {
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.modal_grid_2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.modal_grid_3col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+
+/* --- Media Picker Accent Formats --- */
+.file_upload_label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 2px;
+}
+
+.file_input_field {
+  padding: 8px !important;
+  background-color: #fafafa;
+  border: 1px dashed #bbb !important;
+  cursor: pointer;
+}
+
+.file_input_field:hover {
+  border-color: #ff385c !important;
+}
+
+.file_count_badge {
+  margin: 4px 0 0 0;
+  font-size: 0.8rem;
+  color: #2e7d32;
+}
