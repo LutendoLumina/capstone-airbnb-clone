@@ -79,6 +79,14 @@ The system features a strict object-oriented, class-driven Booking and Reservati
   * **Host Dashboard View (`/api/reservations/host`):** Automatically maps listing reference tracking back to specific managing profiles to deliver real-time notifications revealing precisely which accounts have checked into their properties.
 * **Administrative Cancellations:** Connects localized ID constraints straight into protected deletion tracks (`DELETE /api/reservations/:id`) to handle real-time session updates cleanly.
 
+### 10. Frontend Reservation Sync & Host Portal View
+The management ecosystem ties cleanly together by linking the authenticated administrative interface straight into the core booking collection datasets.
+
+* **Dynamic Dropdown Route Injection:** Hydrates the primary navigation layout profile element with an operational link targeting protected booking domains (`/reservations`) based entirely on active session verification states.
+* **Real-Time Host Roster Engine:** Uses browser state triggers to make network calls to server endpoints (`GET /api/reservations/host`), mapping relational occupant payloads natively onto responsive tabular interface layouts.
+* **Instantaneous UI State Purging:** Pairs user confirmation intercepts with deletion streams (`DELETE /api/reservations/:id`), dynamically filtering local array loops to instantly remove canceled bookings from the dashboard layout without requiring hard browser reloads.
+* **Responsive Layout Guard:** Employs CSS Flexbox layouts and query breakpoints to compress multi-row reservation data rows cleanly onto mobile screens without clipping text or dropping action vectors.
+
 ---
 
 ## 🔐 Administrative Authentication & Seeding

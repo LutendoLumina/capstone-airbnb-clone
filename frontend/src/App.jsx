@@ -4,6 +4,7 @@ import Header from "../src/components/layouts/Header";
 import CreateListing from "./pages/Listings/CreateListing";
 import ViewListings from "./pages/Listings/ViewListings";
 import LoginPage from "./pages/Login/LoginPage";
+import ReservationsPage from "./pages/Reservations/ReservationsPage";
 
 export default function App() {
 
@@ -44,6 +45,10 @@ export default function App() {
           <Route
             path="/create-listing"
             element={currentUser ? <CreateListing /> : <Navigate to="/" replace />}
+          />
+          <Route
+            path="/reservations"
+            element={currentUser ? <ReservationsPage /> : <Navigate to="/" replace />}
           />
         </Routes>
       </main>
