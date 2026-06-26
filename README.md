@@ -69,6 +69,16 @@ The admin panel inventory management portal utilizes highly synchronized state-m
 * **Mongoose Model Normalization:** Dynamically maps properties from the cluster document array into JSX layout blocks, transforming MongoDB explicit indexing fields (`_id`) into unique React reconciliation trackers (`key={listing._id}`) to prevent rendering warnings.
 * **Static Assets Path Resolvers:** Features path-parsing intercept filters that translate server-side disk storage backslashes (`src\uploads\images`) into sanitized web URL forward slashes, prefixing active environment hostnames to serve dynamic images natively to the client interface.
 
+### 9. End-to-End Enterprise Reservation Tracking Engine
+The system features a strict object-oriented, class-driven Booking and Reservation engine managed entirely through automated validation checks, secure identity mapping, and structural model relations.
+
+* **Relational Reference Mapping (Mongoose Object Relations):** Implements structural document tracking linking unique occupant profiles (`users`) directly to active properties (`Accommodation` references) while managing strict temporal fields (`start_date`, `end_date`) and total price metrics.
+* **Declarative Parameter Validation Guards:** Integrates strict `express-validator` middleware array checkpoints (`ReservationValidator`) enforcing precise ISO 8601 timeline checking patterns alongside cross-collection custom verification sweeps (`Accommodation.findById`) to guarantee data continuity before collection persistence.
+* **Multi-Channel Aggregation Controllers:** Features dual-channel query optimization:
+  * **Guest Stream (`/api/reservations/user`):** Isolates individual tenant profiles using secure JWT payload extractions, populating associated property images and base parameters chronologically.
+  * **Host Dashboard View (`/api/reservations/host`):** Automatically maps listing reference tracking back to specific managing profiles to deliver real-time notifications revealing precisely which accounts have checked into their properties.
+* **Administrative Cancellations:** Connects localized ID constraints straight into protected deletion tracks (`DELETE /api/reservations/:id`) to handle real-time session updates cleanly.
+
 ---
 
 ## 🔐 Administrative Authentication & Seeding

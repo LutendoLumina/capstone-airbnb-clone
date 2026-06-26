@@ -7,6 +7,7 @@ import cors from "cors";
 import * as path from 'path';
 import UserRouters from "./routers/UserRouters";
 import ListingRouters from "./routers/ListingRouters";
+import ReservationRouters from "./routers/ReservationRouters";
 
 
 export class Server {
@@ -62,6 +63,7 @@ export class Server {
   setRoutes() {
     this.app.use("/api/user", UserRouters);
     this.app.use("/api/listings", ListingRouters);
+    this.app.use("/api/reservations", ReservationRouters);
   }
 
   handlerErrors() {
