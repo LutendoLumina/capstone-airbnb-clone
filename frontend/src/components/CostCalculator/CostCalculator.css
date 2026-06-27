@@ -1,0 +1,153 @@
+.cost-calculator {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 100px;
+}
+
+.calculator-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.calc-price {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #222;
+}
+
+.calc-per-night {
+  font-size: 0.9rem;
+  color: #717171;
+}
+
+.calc-rating {
+  font-size: 0.85rem;
+  color: #222;
+}
+
+.calc-reviews {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Date pickers */
+.date-pickers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+.date-field {
+  padding: 10px 12px;
+  border-right: 1px solid #ddd;
+}
+
+.date-field:last-child {
+  border-right: none;
+}
+
+.date-field label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+}
+
+.date-field input {
+  border: none;
+  outline: none;
+  font-size: 0.85rem;
+  color: #222;
+  width: 100%;
+}
+
+/* Guests */
+.guests-field {
+  border: 1px solid #ddd;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  padding: 10px 12px;
+  margin-bottom: 16px;
+}
+
+.guests-field label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+}
+
+.guests-field input {
+  border: none;
+  outline: none;
+  font-size: 0.85rem;
+  color: #222;
+  width: 100%;
+}
+
+/* Reserve button */
+.reserve-btn {
+  width: 100%;
+  background: linear-gradient(to right, #e61e4d, #e31c5f, #d70466);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 12px;
+  transition: opacity 0.2s;
+}
+
+.reserve-btn:hover {
+  opacity: 0.9;
+}
+
+.no-charge-note {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #222;
+  margin-bottom: 16px;
+}
+
+/* Cost breakdown */
+.cost-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cost-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #222;
+}
+
+.cost-row.discount {
+  color: #008a05;
+}
+
+.calc-divider {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 4px 0;
+}
+
+.cost-row.total {
+  font-weight: 600;
+  font-size: 1rem;
+}

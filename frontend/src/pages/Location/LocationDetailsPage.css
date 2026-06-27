@@ -1,0 +1,188 @@
+.details-page {
+  padding: 24px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.details-heading {
+  margin-bottom: 24px;
+}
+
+.details-heading h1 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 8px;
+}
+
+.details-subheading {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: #222;
+}
+
+.dot {
+  color: #717171;
+}
+
+.details-location {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Two column layout */
+.details-body {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 80px;
+  margin-top: 40px;
+}
+
+.details-left {
+  min-width: 0;
+}
+
+.details-divider {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 32px 0;
+}
+
+/* Host info */
+.host-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.host-info h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 4px;
+}
+
+.host-info p {
+  font-size: 0.9rem;
+  color: #717171;
+}
+
+.host-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #ff385c;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* Highlights */
+.highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.highlight-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.highlight-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.highlight-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #222;
+  margin: 0 0 4px;
+}
+
+.highlight-desc {
+  font-size: 0.85rem;
+  color: #717171;
+  margin: 0;
+}
+
+/* Description */
+.description p {
+  font-size: 0.95rem;
+  color: #222;
+  line-height: 1.6;
+}
+
+/* Sleep section */
+.sleep-section h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 16px;
+}
+
+.bedroom-card {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 24px;
+  width: 180px;
+  text-align: center;
+}
+
+.bedroom-card span {
+  font-size: 1.8rem;
+}
+
+.bedroom-card p {
+  font-size: 0.9rem;
+  color: #222;
+  margin: 8px 0 0;
+}
+
+/* Things to know */
+.things-to-know h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 24px;
+}
+
+.know-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.know-grid h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 12px;
+}
+
+.know-grid ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.know-grid ul li {
+  font-size: 0.85rem;
+  color: #717171;
+  margin-bottom: 8px;
+}
+
+.not-found {
+  padding: 80px;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #717171;
+}

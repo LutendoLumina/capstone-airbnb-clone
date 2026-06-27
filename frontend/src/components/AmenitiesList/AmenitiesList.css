@@ -1,0 +1,44 @@
+.amenities-section h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 16px;
+}
+
+.amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.amenity-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.amenity-item span {
+  font-size: 1rem;
+  color: #222;
+}
+
+.amenity-item p {
+  font-size: 0.9rem;
+  color: #222;
+  margin: 0;
+}
+
+.show-all-amenities-btn {
+  border: 1px solid #222;
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.show-all-amenities-btn:hover {
+  background-color: #f7f7f7;
+}

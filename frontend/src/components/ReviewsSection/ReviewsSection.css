@@ -1,0 +1,45 @@
+.reviews-section h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 24px;
+}
+
+.rating-categories {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.rating-category {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.category-label {
+  font-size: 0.85rem;
+  color: #222;
+  width: 100px;
+  flex-shrink: 0;
+}
+
+.rating-bar-container {
+  flex: 1;
+  height: 4px;
+  background-color: #ddd;
+  border-radius: 2px;
+}
+
+.rating-bar {
+  height: 100%;
+  background-color: #222;
+  border-radius: 2px;
+}
+
+.category-value {
+  font-size: 0.85rem;
+  color: #222;
+  width: 24px;
+  text-align: right;
+}
