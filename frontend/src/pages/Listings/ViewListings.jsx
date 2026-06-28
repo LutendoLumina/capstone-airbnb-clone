@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import EditListingModal from "../../components/modals/EditListingModal";
+import EditListingModal from "../../components/Modals/EditListingModal";
 import "./ViewListings.css";
 
 export default function ViewListings() {

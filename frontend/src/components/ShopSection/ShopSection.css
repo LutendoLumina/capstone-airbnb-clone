@@ -1,0 +1,36 @@
+.shop-section {
+  padding: 40px 80px;
+  background-color: #f7f7f7;
+}
+
+.shop-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.shop-text h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 16px;
+}
+
+.shop-text button {
+  background-color: #222;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.shop-image img {
+  width: 300px;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+}

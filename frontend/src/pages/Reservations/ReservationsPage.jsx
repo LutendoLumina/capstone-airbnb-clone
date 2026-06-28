@@ -75,8 +75,8 @@ export default function ReservationsPage() {
           {reservations.map((res) => (
             <div key={res._id} className="reservation-card">
               <div className="res-details">
-                <h3>{res.accommodation_id?.title || "Property Listing"}</h3>
-                <p className="res-location">📍 {res.accommodation_id?.location}</p>
+                <h3>{res.listing_id?.title || "Property Listing"}</h3>
+                <p className="res-location">📍 {res.listing_id?.location}</p>
                 <hr />
                 <p><strong>Guest:</strong> {res.user_id?.username} ({res.user_id?.email})</p>
                 <p><strong>Check-In:</strong> {new Date(res.start_date).toLocaleDateString()}</p>

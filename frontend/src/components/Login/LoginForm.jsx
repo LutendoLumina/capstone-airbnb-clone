@@ -43,7 +43,11 @@ export default function LoginForm({ onLoginSuccess }) {
       onLoginSuccess(loggedInUser);
 
       // Redirect to the admin dashboard
-      navigate("/create-listing");
+      if(data.user.type === "admin") {
+        navigate("/listings");
+      } else {
+        navigate("/")
+      }
     } catch (err) {
       setError(err.message);
     } finally {
@@ -54,7 +58,7 @@ export default function LoginForm({ onLoginSuccess }) {
   return (
     <div className="login_container">
       <div className="login_card">
-        <h2>Admin Login</h2>
+        <h2>Log In</h2>
 
         {error && <p className="error_msg">{error}</p>}
 

@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import accommodations from "../../data/accomodations";
+import { useState, useEffect } from "react";
 import ImageGallery from "../../components/ImageGallery/ImageGallery";
 import CostCalculator from "../../components/CostCalculator/CostCalculator";
 import AmenitiesList from "../../components/AmenitiesList/AmenitiesList";
@@ -8,11 +8,26 @@ import "./LocationDetailsPage.css";
 
 function LocationDetailsPage() {
   const { id } = useParams();
-  const accommodation = accommodations.find((a) => a.id === parseInt(id));
+  const [accommodation, setAccommodation] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  if (!accommodation) {
-    return <div className="not-found">Listing not found.</div>;
-  }
+  useEffect(() => {
+    fetch(`http://localhost:3000/api/listings/public/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setAccommodation(data.data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setError("Failed to load listing.");
+        setLoading(false);
+      });
+  }, [id]);
+
+  if (loading) return <div className="loading">Loading...</div>;
+  if (error) return <div className="error">{error}</div>;
+  if (!accommodation) return <div className="not-found">Listing not found.</div>;
 
   const {
     title,
@@ -25,54 +40,52 @@ function LocationDetailsPage() {
     amenities,
     rating,
     reviews,
-    price,
+    base_price,
     images,
-    host,
     enhancedCleaning,
     selfCheckIn,
     specificRatings,
   } = accommodation;
 
+  // Fix image paths
+  const fixedImages = images.map(
+    (img) => `http://localhost:3000/${img.replace(/\\/g, "/")}`
+  );
+
   return (
     <div className="details-page">
-      {/* Heading */}
       <div className="details-heading">
         <h1>{title}</h1>
         <div className="details-subheading">
-          <span className="details-rating">⭐ {rating}</span>
+          <span className="details-rating">⭐ {rating || "New"}</span>
           <span className="dot">·</span>
-          <span className="details-reviews">{reviews} reviews</span>
+          <span className="details-reviews">{reviews || 0} reviews</span>
           <span className="dot">·</span>
           <span className="details-location">{location}</span>
         </div>
       </div>
 
-      {/* Image Gallery */}
-      <ImageGallery images={images} />
+      <ImageGallery images={fixedImages} />
 
-      {/* Two Column Layout */}
       <div className="details-body">
-        {/* Left Column */}
         <div className="details-left">
-          {/* Host Info */}
           <div className="host-info">
             <div>
-              <h2>{type} hosted by {host}</h2>
+              <h2>{type} hosted by Host</h2>
               <p>{guests} guests · {bedrooms} bedrooms · {bathrooms} bathrooms</p>
             </div>
-            <div className="host-avatar">{host.charAt(0)}</div>
+            <div className="host-avatar">H</div>
           </div>
 
           <hr className="details-divider" />
 
-          {/* Highlights */}
           <div className="highlights">
             {enhancedCleaning && (
               <div className="highlight-item">
                 <span className="highlight-icon">✨</span>
                 <div>
                   <p className="highlight-title">Enhanced Clean</p>
-                  <p className="highlight-desc">This host committed to Airbnb's enhanced cleaning process.</p>
+                  <p className="highlight-desc">Committed to Airbnb's enhanced cleaning process.</p>
                 </div>
               </div>
             )}
@@ -96,14 +109,12 @@ function LocationDetailsPage() {
 
           <hr className="details-divider" />
 
-          {/* Description */}
           <div className="description">
             <p>{description}</p>
           </div>
 
           <hr className="details-divider" />
 
-          {/* Where you'll sleep */}
           <div className="sleep-section">
             <h3>Where you'll sleep</h3>
             <div className="bedroom-card">
@@ -115,21 +126,20 @@ function LocationDetailsPage() {
 
           <hr className="details-divider" />
 
-          {/* Amenities */}
           <AmenitiesList amenities={amenities} />
 
           <hr className="details-divider" />
 
-          {/* Reviews */}
-          <ReviewsSection
-            rating={rating}
-            reviews={reviews}
-            specificRatings={specificRatings}
-          />
+          {specificRatings && (
+            <ReviewsSection
+              rating={rating}
+              reviews={reviews}
+              specificRatings={specificRatings}
+            />
+          )}
 
           <hr className="details-divider" />
 
-          {/* Things to know */}
           <div className="things-to-know">
             <h3>Things to know</h3>
             <div className="know-grid">
@@ -138,7 +148,6 @@ function LocationDetailsPage() {
                 <ul>
                   <li>Check-in: After 4:00 PM</li>
                   <li>Checkout: 10:00 AM</li>
-                  <li>Self check-in with lockbox</li>
                   <li>No smoking</li>
                   <li>No pets</li>
                   <li>No parties or events</li>
@@ -148,7 +157,6 @@ function LocationDetailsPage() {
                 <h4>Health & safety</h4>
                 <ul>
                   <li>Enhanced cleaning process</li>
-                  <li>Social distancing guidelines apply</li>
                   <li>Carbon monoxide alarm</li>
                   <li>Smoke alarm</li>
                 </ul>
@@ -156,14 +164,13 @@ function LocationDetailsPage() {
               <div>
                 <h4>Cancellation policy</h4>
                 <ul>
-                  <li>Free cancellation before Feb 14</li>
+                  <li>Free cancellation before check-in</li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Right Column - Cost Calculator */}
         <div className="details-right">
           <CostCalculator accommodation={accommodation} />
         </div>

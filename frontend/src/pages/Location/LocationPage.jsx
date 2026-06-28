@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import AccommodationCard from "../../components/AccomodationCard/AccomodationCard";
-import accommodations from "../../data/accomodations";
 import "./LocationPage.css";
 
 function LocationPage() {
+  const [accommodations, setAccommodations] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const [activeFilter, setActiveFilter] = useState(null);
+  const [searchParams] = useSearchParams();
+  const locationParam = searchParams.get("location");
 
   const filters = [
     "Free cancellation",
@@ -14,10 +19,34 @@ function LocationPage() {
     "More filters",
   ];
 
+  const filtered =
+    locationParam && locationParam !== "All Locations"
+      ? accommodations.filter((a) =>
+          a.location.toLowerCase().includes(locationParam.toLowerCase()),
+        )
+      : accommodations;
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/listings/public")
+      .then((res) => res.json())
+      .then((data) => {
+        setAccommodations(data.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError("Failed to load listings.");
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <div className="loading">Loading listings...</div>;
+  if (error) return <div className="error">{error}</div>;
+
   return (
     <div className="location-page">
       <h2 className="location-heading">
-        {accommodations.length}+ stays in Bordeaux
+        {filtered.length}+ stays{" "}
+        {locationParam ? `in ${locationParam}` : "available"}
       </h2>
 
       {/* Filter Chips */}
@@ -26,7 +55,9 @@ function LocationPage() {
           <button
             key={filter}
             className={`filter-chip ${activeFilter === filter ? "active" : ""}`}
-            onClick={() => setActiveFilter(filter === activeFilter ? null : filter)}
+            onClick={() =>
+              setActiveFilter(filter === activeFilter ? null : filter)
+            }
           >
             {filter}
           </button>
@@ -37,9 +68,9 @@ function LocationPage() {
 
       {/* Accommodation Cards */}
       <div className="accommodation-list">
-        {accommodations.map((accommodation) => (
+        {filtered.map((accommodation) => (
           <AccommodationCard
-            key={accommodation.id}
+            key={accommodation._id}
             accommodation={accommodation}
           />
         ))}

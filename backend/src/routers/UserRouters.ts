@@ -23,7 +23,6 @@ class userRouters {
       "/login",
       UserValidator.login(),
       GlobalMiddleware.checkError,
-      GlobalMiddleware.adminRole,
       (req: Request, res: Response, next: NextFunction) =>
         UserController.login(req, res, next),
     );

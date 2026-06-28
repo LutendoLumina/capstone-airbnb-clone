@@ -56,7 +56,7 @@ export class Server {
   allowCors() {
     this.app.use(cors({ origin: 'http://localhost:5173' }));
 
-    this.app.use('/src/uploads', express.static(path.join(__dirname, 'uploads')));
+    this.app.use('/uploads', express.static(path.join(__dirname, '../src/uploads')));
 
   }
 

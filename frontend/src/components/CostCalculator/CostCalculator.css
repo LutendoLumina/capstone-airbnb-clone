@@ -151,3 +151,21 @@
   font-weight: 600;
   font-size: 1rem;
 }
+
+.reserve-message {
+  text-align: center;
+  font-size: 0.9rem;
+  padding: 8px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.reserve-message.success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.reserve-message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}

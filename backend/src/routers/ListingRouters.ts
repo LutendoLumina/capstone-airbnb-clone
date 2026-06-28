@@ -25,6 +25,18 @@ class ListingRouters {
       (req: Request, res: Response, next: NextFunction) =>
         ListingController.getAllListings(req, res, next),
     );
+
+    this.router.get(
+      "/public",
+      (req: Request, res: Response, next: NextFunction) =>
+        ListingController.getAllListings(req, res, next),
+    );
+
+    this.router.get(
+      "/public/:id",
+      (req: Request, res: Response, next: NextFunction) =>
+        ListingController.getListingById(req, res, next),
+    );
   }
 
   postRoutes() {

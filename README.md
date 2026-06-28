@@ -39,7 +39,7 @@ Frontend (React/Vite) ↔ Backend API (Node/TypeScript) ↔ Database Layer (Mong
 * **Stateful JWT Session Tokens:** Engineered a token generation pipeline using `jsonwebtoken` to stamp out signed authentication tickets (`Jwt.jwtSign`) loaded with user permissions, alongside structural camelCase time-tracking maps (`createdAt` / `updatedAt`) fed smoothly to the client dashboard.
 
 ### 5. Frontend to Backend Integration Bridge
-The client-side React authentication view establishes a direct HTTP network handshake with the Express API service using the native browser `fetch` stream handler. 
+The client-side React authentication view establishes a direct HTTP network handshake with the Express API service using the native browser `fetch` stream handler.
 
 * **State Initialization:** Manages isolated reactive states for tracking form payload targets (`email`, `password`), interactive submission processing triggers (`loading`), and descriptive API constraint handling (`error`).
 * **Session Persistence Layer:** Upon encountering a verified matching payload layout, the interface extracts the signed JSON Web Token (JWT) string and the associated `user` object data context from the response stream, preserving them securely inside the browser's persistent storage engine (`localStorage`).
@@ -87,6 +87,45 @@ The management ecosystem ties cleanly together by linking the authenticated admi
 * **Instantaneous UI State Purging:** Pairs user confirmation intercepts with deletion streams (`DELETE /api/reservations/:id`), dynamically filtering local array loops to instantly remove canceled bookings from the dashboard layout without requiring hard browser reloads.
 * **Responsive Layout Guard:** Employs CSS Flexbox layouts and query breakpoints to compress multi-row reservation data rows cleanly onto mobile screens without clipping text or dropping action vectors.
 
+### 11. Location Page & Accommodation Card Components
+* **Location Page:** Displays a dynamic list of accommodation listings fetched live from the backend API (`GET /api/listings/public`), featuring filter chips (Free cancellation, Type of place, Price, Instant Book, More filters) and a listing count heading.
+* **Accommodation Card Component:** Reusable card layout rendering listing image, type, title, guest/bed/bath specs, amenities, star rating, review count, and price per night. Features wishlist toggle and click navigation to the listing detail page.
+* **Live API Integration:** Replaced hardcoded data layer with live MongoDB document streams. Image paths are sanitized from server-side backslash formats into browser-compatible forward-slash URLs prefixed with the backend hostname.
+* **Location Filter via Search Bar:** Header search bar dynamically fetches unique city names from the listings API and populates a location dropdown. Selecting a location navigates to `/location?location=CityName`, which filters the listings list by matching city.
+
+### 12. Location Details Page
+* **Image Gallery:** Two-column gallery layout with one large main image on the left and four smaller images stacked in a 2x2 grid on the right, with a "Show all photos" button overlay.
+* **Two-Column Layout:** Left column contains accommodation details (host info, highlights, description, sleep section, amenities, reviews, things to know). Right column contains the sticky cost calculator.
+* **Amenities List Component:** Reusable grid display of all property amenities with a "Show all amenities" toggle button.
+* **Reviews Section Component:** Star rating overview with individual category rating bars (cleanliness, communication, check-in, accuracy, location, value).
+* **Cost Calculator Component:** Dynamic calculator with date pickers and guest count input. Automatically calculates total cost including base price per night, weekly discount, cleaning fee, service fee, and occupancy taxes. Updates in real time as dates are selected.
+* **Live API Integration:** Location Details Page fetches a single listing by MongoDB `_id` from `GET /api/listings/public/:id`, replacing the previous hardcoded data source.
+
+### 13. Shared Login Page & Role-Based Redirect
+* **Unified Login Form:** Single login page (`/login`) shared between admin and regular users. On successful authentication, the user type returned in the JWT payload determines the redirect destination.
+* **Role-Based Redirect:** Admin users (`type: "admin"`) are redirected to `/listings`. Regular users (`type: "user"`) are redirected to the home page (`/`).
+* **Dual User Seeding:** Extended the database seed script (`seedUser.ts`) to provision both an administrator account (`admin@airbnb.com`) and a regular user account (`user@airbnb.com`) with securely hashed passwords.
+
+### 14. Dynamic Header with Role-Aware Navigation
+* **Unified Header Component:** Single `Header.jsx` component shared across all pages, rendering different dropdown menu options based on the logged-in user's role.
+* **Logged Out State:** Displays Log In and Sign Up options in the profile dropdown.
+* **Admin State:** Dropdown shows View Listings, View Reservations, Create Listing, and Log Out.
+* **User State:** Dropdown shows View Reservations and Log Out, linking to the user-specific `/my-reservations` page.
+* **Live Location Dropdown:** Search bar fetches unique city names from the public listings API on mount and populates the Locations dropdown dynamically.
+
+### 15. Reserve Button & End-to-End Reservation Flow
+* **Authentication Guard:** Reserve button checks for a valid JWT token in `localStorage` before proceeding. Unauthenticated users are redirected to `/login`.
+* **Date Validation:** Validates that both check-in and check-out dates are selected and that the check-out date is after the check-in date before submitting.
+* **Live Reservation Submission:** Sends a `POST /api/reservations/create` request with `listing_id`, `start_date`, `end_date`, and `total_price` to the backend, with the JWT token in the Authorization header.
+* **User Feedback:** Displays a success confirmation message on successful booking or a descriptive error message if the request fails.
+
+### 16. User Reservations Page
+* **Protected Route:** Accessible only to authenticated users via `/my-reservations`. Unauthenticated sessions are redirected to `/login`.
+* **Live Reservation Fetching:** Fetches the logged-in user's reservations from `GET /api/reservations/user` using the stored JWT token.
+* **Tabular Layout:** Displays reservations in a structured table showing property name, location, check-in date, check-out date, total price, status badge, and a cancel action button.
+* **Instant Cancellation:** Cancel button sends `DELETE /api/reservations/:id` and instantly removes the cancelled booking from the UI without requiring a page reload.
+* **Status Badges:** Color-coded status indicators (confirmed, pending, cancelled) provide clear visual feedback on each booking's state.
+
 ---
 
 ## 🔐 Administrative Authentication & Seeding
@@ -102,40 +141,32 @@ DEV_DB_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/airbnb
 JWT_SECRET=your_cryptographic_secret_key_here
 ```
 
-### 2. Seeding the Administrator Account
-To instantly instantiate the primary administrator profile (Jane Doe) with a securely hashed password inside your cloud cluster, execute the standalone database seed runner:
+### 2. Seeding the Administrator & User Accounts
+To instantly instantiate both the administrator and regular user profiles with securely hashed passwords inside your cloud cluster, execute the standalone database seed runner:
 
-```
-# Navigate to the backend directory
+
+Navigate to the backend directory
 cd backend
-
-# Execute the TypeScript seeder script
-npx ts-node src/seedAdmin.ts
-```
+Execute the TypeScript seeder script
+npx ts-node src/seedUser.ts
 
 
-### 3. Administrative Credentials for Testing
-Once the database logs show a successful seeding handshake, use the following body payload parameters inside Postman or your Frontend Login Form to authenticate:
+### 3. Credentials for Testing
 
-* **HTTP Method:** POST
+**Admin Account:**
+* **Email:** admin@airbnb.com
+* **Password:** password123
+* **Redirects to:** `/listings` (Admin Dashboard)
 
-* **Endpoint:** http://localhost:3000/api/users/login
-
-* **Headers:** Content-Type: application/json
-
-* **JSON Body Payload:**
-
-JSON
-{
-  "email": "admin@airbnb.com",
-  "password": "password123"
-}
-
+**Regular User Account:**
+* **Email:** user@airbnb.com
+* **Password:** password123
+* **Redirects to:** `/` (Home Page)
 
 ### 4. API Response Structure
 Upon approval by the validation and role middlewares, the endpoint returns a 200 OK response payload containing the user's details and the signed JWT token:
 
-JSON
+```json
 {
   "success": true,
   "message": "User logged in successfully",
@@ -149,6 +180,7 @@ JSON
     "updated_at": "2026-06-19T00:15:30.000Z"
   }
 }
+```
 
 ---
 
