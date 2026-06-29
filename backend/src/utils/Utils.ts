@@ -45,7 +45,7 @@ export class Utils {
     const isMatch = await bcrypt.compare(data.password, data.encrypt_password);
 
     if (!isMatch) {
-      throw new Error("User and Password do not match");
+      throw new Error("Your password is incorrect. Please try again.");
     }
 
     return true;

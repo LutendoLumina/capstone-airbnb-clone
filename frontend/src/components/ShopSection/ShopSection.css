@@ -1,23 +1,25 @@
-.shop-section {
+.shop_section {
   padding: 40px 80px;
   background-color: #f7f7f7;
+  /* width: 1280px;
+  height: 320px; */
 }
 
-.shop-content {
+.shop_content {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 40px;
 }
 
-.shop-text h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
+.shop_text h2 {
+  font-size: 48px;
+  font-weight: 500;
   color: #222;
   margin-bottom: 16px;
 }
 
-.shop-text button {
+.shop_text button {
   background-color: #222;
   color: #fff;
   border: none;
@@ -28,8 +30,8 @@
   cursor: pointer;
 }
 
-.shop-image img {
-  width: 300px;
+.shop_image img {
+  width: 700px;
   height: auto;
   border-radius: 12px;
   object-fit: cover;

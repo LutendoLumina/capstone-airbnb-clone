@@ -1,50 +1,59 @@
-.inspiration-section {
+.inspiration_section {
   padding: 40px 80px;
 }
 
-.inspiration-section h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
+.inspiration_section h2 {
+  font-size: 36px;
+  font-weight: 500;
   margin-bottom: 24px;
-  color: #222;
+  color: #000000;
 }
 
-.inspiration-grid {
+.inspiration_grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
 }
 
-.inspiration-card {
+.inspiration_card {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 12px;
   cursor: pointer;
   border-radius: 8px;
   padding: 8px;
   transition: background-color 0.2s;
+  width: 324px;
+  height: 444px;
+  background-color: #cc2d4a;
 }
 
-.inspiration-card:hover {
-  background-color: #f7f7f7;
+.inspiration_card:hover {
+  background-color: #bc1a6e;
 }
 
-.inspiration-card img {
-  width: 80px;
-  height: 80px;
+.inspiration_card img {
+  width: 324px;
+  height: 200px;
   border-radius: 8px;
   object-fit: cover;
 }
 
-.inspiration-card-name {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #222;
+.inspiration_card_name {
+  font-size: 36px;
+  font-weight: 500;
+  color: #ffffff;
   margin: 0;
+  width: 292px;
+  height: 88px;
 }
 
-.inspiration-card-distance {
-  font-size: 0.85rem;
-  color: #717171;
+.inspiration_card_distance {
+  font-size: 18px;
+  font-weight: 400;
+  color: #ffffff;
   margin: 4px 0 0;
+  width: 292px;
+  height: 28px;
 }

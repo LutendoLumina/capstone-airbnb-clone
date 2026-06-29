@@ -7,6 +7,7 @@ import { CgProfile } from "react-icons/cg";
 import "./Header.css";
 
 export default function Header({ user, onLogout }) {
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [location, setLocation] = useState("");
   const [checkIn, setCheckIn] = useState("");
@@ -72,7 +73,7 @@ export default function Header({ user, onLogout }) {
         <div className="search_divider" />
 
         <div className="search_field">
-          <label className="search_label">Check in date</label>
+          <label className="search_label">Check in</label>
           <input
             type="date"
             className="search_date"
@@ -84,7 +85,7 @@ export default function Header({ user, onLogout }) {
         <div className="search_divider" />
 
         <div className="search_field">
-          <label className="search_label">Checkout date</label>
+          <label className="search_label">Check out</label>
           <input
             type="date"
             className="search_date"
@@ -133,7 +134,6 @@ export default function Header({ user, onLogout }) {
               {!user && (
                 <>
                   <Link to="/login" className="dropdown_item" onClick={closeDropdown}>Log In</Link>
-                  <Link to="/signup" className="dropdown_item" onClick={closeDropdown}>Sign Up</Link>
                 </>
               )}
               {user?.type === "admin" && (

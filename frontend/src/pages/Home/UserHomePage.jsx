@@ -13,7 +13,6 @@ function UserHomePage() {
       <ExperiencesSection />
       <ShopSection />
       <FutureGetaways />
-      <Footer />
     </div>
   );
 }
