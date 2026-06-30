@@ -4,13 +4,15 @@ import airbnbLogo from "../../../assets/airbnb-logo.svg";
 import { FaSearch } from "react-icons/fa";
 import { IoMenuOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import "./Header.css";
 
 export default function Header({ user, onLogout }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [location, setLocation] = useState("");
-  const [checkIn, setCheckIn] = useState("");
-  const [checkOut, setCheckOut] = useState("");
+  const [checkIn, setCheckIn] = useState(null);
+  const [checkOut, setCheckOut] = useState(null);
   const [guests, setGuests] = useState(0);
   const [locations, setLocations] = useState([]);
   const navigate = useNavigate();
@@ -75,11 +77,15 @@ export default function Header({ user, onLogout }) {
 
         <div className="search_field">
           <label className="search_label">Check in</label>
-          <input
-            type="date"
-            className="search_date"
-            value={checkIn}
-            onChange={(e) => setCheckIn(e.target.value)}
+          <DatePicker
+            selected={checkIn}
+            onChange={(date) => setCheckIn(date)}
+            selectsStart
+            startDate={checkIn}
+            endDate={checkOut}
+            minDate={new Date()}
+            placeholderText="mm/dd/yyyy"
+            className="search_date_picker"
           />
         </div>
 
@@ -87,11 +93,15 @@ export default function Header({ user, onLogout }) {
 
         <div className="search_field">
           <label className="search_label">Check out</label>
-          <input
-            type="date"
-            className="search_date"
-            value={checkOut}
-            onChange={(e) => setCheckOut(e.target.value)}
+          <DatePicker
+            selected={checkOut}
+            onChange={(date) => setCheckOut(date)}
+            selectsEnd
+            startDate={checkIn}
+            endDate={checkOut}
+            minDate={checkIn || new Date()}
+            placeholderText="mm/dd/yyyy"
+            className="search_date_picker"
           />
         </div>
 

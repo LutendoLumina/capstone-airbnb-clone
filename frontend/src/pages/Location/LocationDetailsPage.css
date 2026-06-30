@@ -147,6 +147,221 @@
   margin: 8px 0 0;
 }
 
+/* Calendar Section */
+.calendar-section {
+  margin-bottom: 8px;
+}
+
+.calendar-section h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 4px;
+}
+
+.calendar-subtitle {
+  font-size: 0.85rem;
+  color: #717171;
+  margin-bottom: 16px;
+}
+
+.details-calendar .react-datepicker {
+  border: none;
+  font-family: inherit;
+}
+
+.details-calendar .react-datepicker__month-container {
+  width: 50%;
+}
+
+.details-calendar .react-datepicker__header {
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.details-calendar .react-datepicker__day--selected,
+.details-calendar .react-datepicker__day--range-start,
+.details-calendar .react-datepicker__day--range-end {
+  background-color: #222;
+  color: #fff;
+  border-radius: 50%;
+}
+
+.details-calendar .react-datepicker__day--in-range {
+  background-color: #f7f7f7;
+  color: #222;
+}
+
+.clear-dates-btn {
+  background: none;
+  border: none;
+  text-decoration: underline;
+  font-size: 0.85rem;
+  color: #222;
+  cursor: pointer;
+  margin-top: 8px;
+  display: block;
+}
+
+/* Reviews Cards */
+.reviews-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.review-card {
+  padding: 0;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.reviewer-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #717171;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.reviewer-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #222;
+  margin: 0;
+}
+
+.reviewer-date {
+  font-size: 0.8rem;
+  color: #717171;
+  margin: 2px 0 0;
+}
+
+.review-comment {
+  font-size: 0.9rem;
+  color: #222;
+  line-height: 1.5;
+  margin: 0 0 8px;
+}
+
+.show-more-btn {
+  background: none;
+  border: none;
+  font-size: 0.85rem;
+  color: #222;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+}
+
+.show-all-reviews-btn {
+  border: 1px solid #222;
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.show-all-reviews-btn:hover {
+  background-color: #f7f7f7;
+}
+
+/* Host Details */
+.host-details-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.host-details-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.host-details-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #ff385c;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.host-details-header h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #222;
+  margin: 0 0 4px;
+}
+
+.host-joined {
+  font-size: 0.85rem;
+  color: #717171;
+  margin: 0;
+}
+
+.host-badges {
+  display: flex;
+  gap: 24px;
+  font-size: 0.85rem;
+  color: #222;
+}
+
+.host-superhost-title {
+  font-size: 0.95rem;
+  color: #222;
+  margin: 0;
+}
+
+.host-superhost-desc {
+  font-size: 0.85rem;
+  color: #717171;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 400px;
+}
+
+.host-response {
+  font-size: 0.85rem;
+  color: #222;
+  margin: 0;
+}
+
+.contact-host-btn {
+  border: 1px solid #222;
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.contact-host-btn:hover {
+  background-color: #f7f7f7;
+}
+
 /* Things to know */
 .things-to-know h3 {
   font-size: 1.1rem;

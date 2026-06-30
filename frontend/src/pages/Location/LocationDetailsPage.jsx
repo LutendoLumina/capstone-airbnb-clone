@@ -4,6 +4,8 @@ import ImageGallery from "../../components/ImageGallery/ImageGallery";
 import CostCalculator from "../../components/CostCalculator/CostCalculator";
 import AmenitiesList from "../../components/AmenitiesList/AmenitiesList";
 import ReviewsSection from "../../components/ReviewsSection/ReviewsSection";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import "./LocationDetailsPage.css";
 
 function LocationDetailsPage() {
@@ -11,6 +13,14 @@ function LocationDetailsPage() {
   const [accommodation, setAccommodation] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const [checkIn, setCheckIn] = useState(null);
+  const [checkOut, setCheckOut] = useState(null);
+
+  const nights =
+    checkIn && checkOut
+      ? Math.round((checkOut - checkIn) / (1000 * 60 * 60 * 24))
+      : 0;
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/listings/public/${id}`)
@@ -141,13 +151,123 @@ function LocationDetailsPage() {
 
           <hr className="details-divider" />
 
-          {specificRatings && (
-            <ReviewsSection
-              rating={rating}
-              reviews={reviews}
-              specificRatings={specificRatings}
-            />
-          )}
+          {/* Calendar Section */}
+          <div className="calendar-section">
+            <h3>{nights > 0 ? `${nights} nights` : "Select dates"}</h3>
+            <p className="calendar-subtitle">
+              {checkIn && checkOut
+                ? `${checkIn.toLocaleDateString()} - ${checkOut.toLocaleDateString()}`
+                : "Add your travel dates for exact pricing"}
+            </p>
+            <div className="details-calendar">
+              <DatePicker
+                selected={checkIn}
+                onChange={(dates) => {
+                  const [start, end] = dates;
+                  setCheckIn(start);
+                  setCheckOut(end);
+                }}
+                startDate={checkIn}
+                endDate={checkOut}
+                selectsRange
+                inline
+                minDate={new Date()}
+                monthsShown={2}
+              />
+            </div>
+            {(checkIn || checkOut) && (
+              <button
+                className="clear-dates-btn"
+                onClick={() => {
+                  setCheckIn(null);
+                  setCheckOut(null);
+                }}
+              >
+                Clear dates
+              </button>
+            )}
+          </div>
+
+          <hr className="details-divider" />
+
+          {/* Static Reviews */}
+          <div className="reviews-cards-section">
+            <div className="reviews-cards-grid">
+              {[
+                {
+                  name: "Jose",
+                  date: "December 2021",
+                  comment: "Host was very attentive.",
+                },
+                {
+                  name: "Luke",
+                  date: "December 2021",
+                  comment: "Nice place to stay!",
+                },
+                {
+                  name: "Shayna",
+                  date: "December 2021",
+                  comment:
+                    "Wonderful neighborhood, easy access to restaurants and the subway, cozy studio apartment with a super comfortable bed. Great host, super helpful and responsive.",
+                },
+                {
+                  name: "Josh",
+                  date: "November 2021",
+                  comment:
+                    "Well designed and fun space, neighborhood has lots of energy and amenities.",
+                },
+              ].map((review, index) => (
+                <div key={index} className="review-card">
+                  <div className="review-header">
+                    <div className="reviewer-avatar">
+                      {review.name.charAt(0)}
+                    </div>
+                    <div>
+                      <p className="reviewer-name">{review.name}</p>
+                      <p className="reviewer-date">{review.date}</p>
+                    </div>
+                  </div>
+                  <p className="review-comment">{review.comment}</p>
+                  <button className="show-more-btn">Show more ›</button>
+                </div>
+              ))}
+            </div>
+            <button className="show-all-reviews-btn">
+              Show all {reviews || 12} reviews
+            </button>
+          </div>
+
+          <hr className="details-divider" />
+
+          {/* Host Details */}
+          <div className="host-details-section">
+            <div className="host-details-header">
+              <div className="host-details-avatar">
+                {accommodation.createdBy?.username?.charAt(0) || "H"}
+              </div>
+              <div>
+                <h3>Hosted by {accommodation.createdBy?.username || "Host"}</h3>
+                <p className="host-joined">Joined 2021</p>
+              </div>
+            </div>
+            <div className="host-badges">
+              <span>⭐ {reviews || 0} Reviews</span>
+              <span>✓ Identity verified</span>
+              <span>🏆 Superhost</span>
+            </div>
+            <p className="host-superhost-title">
+              <strong>
+                {accommodation.createdBy?.username || "Host"} is a Superhost
+              </strong>
+            </p>
+            <p className="host-superhost-desc">
+              Superhosts are experienced, highly rated hosts who are committed
+              to providing great stays for guests.
+            </p>
+            <p className="host-response">Response rate: 100%</p>
+            <p className="host-response">Response time: within an hour</p>
+            <button className="contact-host-btn">Contact Host</button>
+          </div>
 
           <hr className="details-divider" />
 

@@ -71,6 +71,16 @@
   width: 100%;
 }
 
+.date-picker-input {
+  border: none;
+  outline: none;
+  font-size: 0.85rem;
+  color: #222;
+  width: 100%;
+  background: transparent;
+  cursor: pointer;
+}
+
 /* Guests */
 .guests-field {
   border: 1px solid #ddd;
@@ -169,4 +179,3 @@
   background-color: #f8d7da;
   color: #721c24;
 }
-

@@ -56,6 +56,16 @@
   cursor: pointer;
 }
 
+.search_date_picker {
+  border: none;
+  outline: none;
+  font-size: 0.85rem;
+  color: #717171;
+  background: transparent;
+  width: 100%;
+  cursor: pointer;
+}
+
 .search_divider {
   width: 1px;
   height: 32px;
