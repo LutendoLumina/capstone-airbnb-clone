@@ -20,7 +20,8 @@ const fileFilter = (req: Request, file: Express.Multer.File, cb: any) => {
     "image/jpeg",
     "image/jpg", 
     "image/png",
-    "image/webp"
+    "image/webp",
+    "image/avif",
   ];
 
   if (allowedMimetypes.includes(file.mimetype)) {

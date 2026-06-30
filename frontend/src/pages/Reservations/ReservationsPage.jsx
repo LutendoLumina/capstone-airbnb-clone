@@ -10,13 +10,16 @@ export default function ReservationsPage() {
     try {
       const token = localStorage.getItem("token");
       // Calling our newly completed backend host route to see who booked our properties
-      const response = await fetch("http://localhost:3000/api/reservations/host", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
+      const response = await fetch(
+        "http://localhost:3000/api/reservations/host",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
         },
-      });
+      );
 
       const result = await response.json();
       if (result.success) {
@@ -36,16 +39,20 @@ export default function ReservationsPage() {
   }, []);
 
   const handleCancelBooking = async (id) => {
-    if (!window.confirm("Are you sure you want to cancel this reservation?")) return;
+    if (!window.confirm("Are you sure you want to cancel this reservation?"))
+      return;
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:3000/api/reservations/${id}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const response = await fetch(
+        `http://localhost:3000/api/reservations/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
 
       const result = await response.json();
       if (result.success) {
@@ -59,42 +66,48 @@ export default function ReservationsPage() {
     }
   };
 
-  if (loading) return <div className="loader-container">Loading reservations...</div>;
+  if (loading)
+    return <div className="loader-container">Loading reservations...</div>;
 
   return (
     <div className="reservations-page">
-      <h2>Manage Bookings & Reservations</h2>
+      <h2>My Reservations</h2>
       {error && <p className="error-banner">{error}</p>}
 
       {reservations.length === 0 ? (
         <div className="empty-state">
-          <p>No active property bookings found for your host profile.</p>
+          <p>No active property bookings found.</p>
         </div>
       ) : (
-        <div className="reservations-grid">
-          {reservations.map((res) => (
-            <div key={res._id} className="reservation-card">
-              <div className="res-details">
-                <h3>{res.listing_id?.title || "Property Listing"}</h3>
-                <p className="res-location">📍 {res.listing_id?.location}</p>
-                <hr />
-                <p><strong>Guest:</strong> {res.user_id?.username} ({res.user_id?.email})</p>
-                <p><strong>Check-In:</strong> {new Date(res.start_date).toLocaleDateString()}</p>
-                <p><strong>Check-Out:</strong> {new Date(res.end_date).toLocaleDateString()}</p>
-                <p className="res-price"><strong>Total Earnings:</strong> R{res.total_price}</p>
-              </div>
-              <div className="res-actions">
-                <span className={`status-badge ${res.status}`}>{res.status}</span>
-                <button 
-                  onClick={() => handleCancelBooking(res._id)} 
-                  className="cancel-btn"
-                >
-                  Cancel Booking
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+        <table className="reservations-table">
+          <thead>
+            <tr>
+              <th>Booked by</th>
+              <th>Property</th>
+              <th>Checkin</th>
+              <th>Checkout</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {reservations.map((res) => (
+              <tr key={res._id}>
+                <td>{res.user_id?.username || "Guest"}</td>
+                <td>{res.listing_id?.title || "Property"}</td>
+                <td>{new Date(res.start_date).toLocaleDateString()}</td>
+                <td>{new Date(res.end_date).toLocaleDateString()}</td>
+                <td>
+                  <button
+                    onClick={() => handleCancelBooking(res._id)}
+                    className="delete-btn"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
     </div>
   );

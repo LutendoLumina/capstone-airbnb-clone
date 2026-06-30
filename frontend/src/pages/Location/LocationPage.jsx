@@ -43,18 +43,19 @@ function LocationPage() {
   if (error) return <div className="error">{error}</div>;
 
   return (
-    <div className="location-page">
-      <h2 className="location-heading">
+    <div className="location_page">
+      
+      <h2 className="location_heading">
         {filtered.length}+ stays{" "}
         {locationParam ? `in ${locationParam}` : "available"}
       </h2>
 
       {/* Filter Chips */}
-      <div className="filter-chips">
+      <div className="filter_chips">
         {filters.map((filter) => (
           <button
             key={filter}
-            className={`filter-chip ${activeFilter === filter ? "active" : ""}`}
+            className={`filter_chip ${activeFilter === filter ? "active" : ""}`}
             onClick={() =>
               setActiveFilter(filter === activeFilter ? null : filter)
             }
@@ -67,7 +68,7 @@ function LocationPage() {
       <hr className="divider" />
 
       {/* Accommodation Cards */}
-      <div className="accommodation-list">
+      <div className="accommodation_list">
         {filtered.map((accommodation) => (
           <AccommodationCard
             key={accommodation._id}

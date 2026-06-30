@@ -27,7 +27,8 @@ function LocationDetailsPage() {
 
   if (loading) return <div className="loading">Loading...</div>;
   if (error) return <div className="error">{error}</div>;
-  if (!accommodation) return <div className="not-found">Listing not found.</div>;
+  if (!accommodation)
+    return <div className="not-found">Listing not found.</div>;
 
   const {
     title,
@@ -47,9 +48,9 @@ function LocationDetailsPage() {
     specificRatings,
   } = accommodation;
 
-  // Fix image paths
   const fixedImages = images.map(
-    (img) => `http://localhost:3000/${img.replace(/\\/g, "/")}`
+    (img) =>
+      `http://localhost:3000/uploads/${img.replace(/\\/g, "/").replace("src/uploads/", "")}`,
   );
 
   return (
@@ -72,7 +73,9 @@ function LocationDetailsPage() {
           <div className="host-info">
             <div>
               <h2>{type} hosted by Host</h2>
-              <p>{guests} guests · {bedrooms} bedrooms · {bathrooms} bathrooms</p>
+              <p>
+                {guests} guests · {bedrooms} bedrooms · {bathrooms} bathrooms
+              </p>
             </div>
             <div className="host-avatar">H</div>
           </div>
@@ -85,7 +88,9 @@ function LocationDetailsPage() {
                 <span className="highlight-icon">✨</span>
                 <div>
                   <p className="highlight-title">Enhanced Clean</p>
-                  <p className="highlight-desc">Committed to Airbnb's enhanced cleaning process.</p>
+                  <p className="highlight-desc">
+                    Committed to Airbnb's enhanced cleaning process.
+                  </p>
                 </div>
               </div>
             )}
@@ -94,7 +99,9 @@ function LocationDetailsPage() {
                 <span className="highlight-icon">🔑</span>
                 <div>
                   <p className="highlight-title">Self check-in</p>
-                  <p className="highlight-desc">Check yourself in with the keypad.</p>
+                  <p className="highlight-desc">
+                    Check yourself in with the keypad.
+                  </p>
                 </div>
               </div>
             )}
@@ -102,7 +109,9 @@ function LocationDetailsPage() {
               <span className="highlight-icon">🏠</span>
               <div>
                 <p className="highlight-title">Entire home</p>
-                <p className="highlight-desc">You'll have the apartment to yourself.</p>
+                <p className="highlight-desc">
+                  You'll have the apartment to yourself.
+                </p>
               </div>
             </div>
           </div>
@@ -120,7 +129,9 @@ function LocationDetailsPage() {
             <div className="bedroom-card">
               <span>🛏️</span>
               <p>Bedroom</p>
-              <p>{bedrooms} queen bed{bedrooms > 1 ? "s" : ""}</p>
+              <p>
+                {bedrooms} queen bed{bedrooms > 1 ? "s" : ""}
+              </p>
             </div>
           </div>
 

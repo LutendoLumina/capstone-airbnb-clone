@@ -15,25 +15,36 @@ export default function CreateListing() {
   const [serviceFee, setServiceFee] = useState("");
   const [occupancyTaxes, setOccupancyTaxes] = useState("");
   const [weeklyDiscount, setWeeklyDiscount] = useState("");
+
   const [amenities, setAmenities] = useState([]);
+  const [amenityInput, setAmenityInput] = useState("");
 
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Add or remove items from the amenities array list
-  const handleAmenityChange = (e) => {
-    const value = e.target.value;
-    if (e.target.checked) {
-      setAmenities([...amenities, value]);
-    } else {
-      setAmenities(amenities.filter((item) => item !== value));
+  const handleAddAmenity = (e) => {
+    e.preventDefault();
+    if (amenityInput.trim() !== "") {
+      // Avoid duplicate tags
+      if (!amenities.includes(amenityInput.trim())) {
+        setAmenities([...amenities, amenityInput.trim()]);
+      }
+      setAmenityInput(""); // Clear the input field
     }
+  };
+
+  const handleRemoveAmenity = (indexToRemove) => {
+    setAmenities(amenities.filter((_, index) => index !== indexToRemove));
   };
 
   const handleFileChange = (e) => {
     if (e.target.files) {
-      setSelectedFiles(Array.from(e.target.files));
+      setSelectedFiles((prev) => [...prev, ...Array.from(e.target.files)]);
     }
+  };
+
+  const handleRemoveFile = (index) => {
+    setSelectedFiles((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleSubmit = async (e) => {
@@ -77,7 +88,7 @@ export default function CreateListing() {
       const result = await response.json();
 
       if (response.ok) {
-        alert("Success! Accommodation listing created in MongoDB cluster.");
+        alert("Success! Accommodation listing created successfully.");
         console.log("Database Response Data Document:", result.data);
 
         // Reset states cleanly on success
@@ -108,6 +119,7 @@ export default function CreateListing() {
   return (
     <div className="form_container">
       <h2>Create New Accommodation</h2>
+
       <form onSubmit={handleSubmit}>
         <div className="form_group">
           <label>Property Title</label>
@@ -122,13 +134,21 @@ export default function CreateListing() {
 
         <div className="form_group">
           <label>Location</label>
-          <input
-            type="text"
-            placeholder="e.g., Johannesburg, South Africa"
+          <select
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             required
-          />
+          >
+            <option value="">Select a city...</option>
+            <option value="Johannesburg">Johannesburg</option>
+            <option value="Cape Town">Cape Town</option>
+            <option value="Durban">Durban</option>
+            <option value="Pretoris">Pretoria</option>
+            <option value="Sandton">Sandton</option>
+            <option value="Port Elizabeth">Gqeberha (Port Elizabeth)</option>
+            <option value="Polokwane">Polokwane</option>
+            <option value="Bloemfontein">Bloemfontein</option>
+          </select>
         </div>
 
         <div className="form_group">
@@ -149,6 +169,7 @@ export default function CreateListing() {
               <option value="Private room">Private room</option>
               <option value="Shared room">Shared room</option>
               <option value="Hotel room">Hotel room</option>
+              <option value="Hotel room">Apartment</option>
             </select>
           </div>
 
@@ -236,82 +257,90 @@ export default function CreateListing() {
           </div>
         </div>
 
-        <div className="amenities_section">
-          <label className="section_title">Amenities Available</label>
-          <div className="checkbox_grid">
-            <label>
-              <input
-                type="checkbox"
-                value="Wifi"
-                checked={amenities.includes("Wifi")}
-                onChange={handleAmenityChange}
-              />{" "}
-              Wifi
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                value="Kitchen"
-                checked={amenities.includes("Kitchen")}
-                onChange={handleAmenityChange}
-              />{" "}
-              Kitchen
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                value="Free Parking"
-                checked={amenities.includes("Free Parking")}
-                onChange={handleAmenityChange}
-              />{" "}
-              Free Parking
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                value="Pool"
-                checked={amenities.includes("Pool")}
-                onChange={handleAmenityChange}
-              />{" "}
-              Pool
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                value="Air Conditioning"
-                checked={amenities.includes("Air Conditioning")}
-                onChange={handleAmenityChange}
-              />{" "}
-              Air Con
-            </label>
+        <div className="form_group amenities_section">
+          <label className="section_title">Amenities</label>
+          <div className="amenities_input_row">
+            <input
+              type="text"
+              placeholder="e.g., Pool, Wifi, Kitchen"
+              value={amenityInput}
+              onChange={(e) => setAmenityInput(e.target.value)}
+            />
+            <button
+              type="button"
+              className="add_amenity_btn"
+              onClick={handleAddAmenity}
+            >
+              Add
+            </button>
           </div>
+
+          {/* Render the dynamic tags under the input */}
+          {amenities.length > 0 && (
+            <div className="amenities_tags_container">
+              {amenities.map((amenity, index) => (
+                <div key={index} className="amenity_tag">
+                  <span>{amenity}</span>
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveAmenity(index)}
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="form_group file_upload_group">
-          <label
-            style={{
-              fontWeight: "bold",
-              display: "block",
-              marginBottom: "8px",
-            }}
-          >
-            Property Showcase Images
-          </label>
+          <label className="section_title">Images</label>
+
           <input
+            id="file-input-id"
             type="file"
-            accept="image/*"
+            accept="image/*, image/avif"
             multiple
             onChange={handleFileChange}
-            required
+            style={{ display: "none" }}
           />
-          <p style={{ fontSize: "12px", color: "#666", marginTop: "4px" }}>
-            Selected: {selectedFiles.length} file(s)
-          </p>
+
+          <label htmlFor="file-input-id" className="custom_upload_btn">
+            Upload Image
+          </label>
+
+          <div className="selected_files">
+            {selectedFiles.map((file, index) => (
+              <div key={index} className="selected_file_item">
+                <span>{file.name}</span>
+                <button
+                  type="button"
+                  className="remove_file_btn"
+                  onClick={() => handleRemoveFile(index)}
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <button type="submit" className="submit_btn" disabled={loading}>
-          {loading ? "Processing Upload..." : "Create Listing"}
-        </button>
+        <div className="form_actions">
+          <button
+            type="submit"
+            className="action_btn_create"
+            disabled={loading}
+          >
+            {loading ? "Processing..." : "Create"}
+          </button>
+          <button
+            type="button"
+            className="action_btn_cancel"
+            onClick={() => window.history.back()}
+          >
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   );

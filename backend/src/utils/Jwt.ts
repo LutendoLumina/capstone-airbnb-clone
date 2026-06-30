@@ -23,7 +23,7 @@ export class Jwt {
             // Specific error handling
             if (err.name === "TokenExpiredError") {
               return reject(
-                new Error("Token has expired. Please login again."),
+                new Error("Your session has expired. Please login again."),
               );
             }
             if (err.name === "JsonWebTokenError") {

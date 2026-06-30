@@ -1,38 +1,33 @@
-.accommodation-card {
+.accommodation_card {
   display: flex;
-  gap: 24px;
+  gap: 16px;
   padding: 24px 0;
   border-bottom: 1px solid #ddd;
   cursor: pointer;
-  transition: background-color 0.2s;
+  text-decoration: none;
 }
 
-.accommodation-card:hover {
-  background-color: #f7f7f7;
+.accommodation_card:hover {
+  opacity: 0.95;
 }
 
 /* Image */
-.card-image-container {
+.card_image_container {
   flex-shrink: 0;
-  width: 280px;
-  height: 200px;
-  border-radius: 12px;
+  width: 240px;
+  height: 160px;
+  border-radius: 8px;
   overflow: hidden;
 }
 
-.card-image {
+.card_image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s;
-}
-
-.card-image:hover {
-  transform: scale(1.03);
 }
 
 /* Details */
-.card-details {
+.card_details {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -40,94 +35,97 @@
   position: relative;
 }
 
-.card-header {
+.card_header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
 
-.card-type {
-  font-size: 0.85rem;
+.card_type {
+  font-size: 0.82rem;
   color: #717171;
   margin: 0 0 4px;
 }
 
-.card-title {
-  font-size: 1.2rem;
+.card_title {
+  font-size: 1rem;
   font-weight: 500;
   color: #222;
   margin: 0;
 }
 
-.wishlist-btn {
+.wishlist_btn {
   background: none;
   border: none;
   cursor: pointer;
   padding: 4px;
+  flex-shrink: 0;
 }
 
-.heart-icon {
+.heart_icon {
   font-size: 1.2rem;
   color: #717171;
 }
 
-.heart-icon.filled {
+.heart_icon.filled {
   color: #ff385c;
 }
 
-.card-divider {
+.card_divider {
   border: none;
   border-top: 1px solid #ddd;
-  margin: 12px 0;
+  margin: 10px 0;
+  width: 100px;
 }
 
-.card-specs {
-  font-size: 0.9rem;
+.card_specs {
+  font-size: 0.85rem;
   color: #717171;
   margin: 0 0 4px;
 }
 
-.card-amenities {
-  font-size: 0.9rem;
+.card_amenities {
+  font-size: 0.85rem;
   color: #717171;
   margin: 0;
 }
 
 /* Footer */
-.card-footer {
+.card_footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 8px;
 }
 
-.card-rating {
+.card_rating {
   display: flex;
   align-items: center;
   gap: 4px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #222;
 }
 
-.star-icon {
+.star_icon {
   color: #ff385c;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
 }
 
 .reviews {
   color: #717171;
 }
 
-.card-price {
-  font-size: 1rem;
+.card_price {
+  font-size: 0.95rem;
   color: #222;
 }
 
 .price {
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
-.per-night {
+.per_night {
   font-size: 0.85rem;
   color: #717171;
 }

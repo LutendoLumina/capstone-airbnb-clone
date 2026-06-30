@@ -4,140 +4,170 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(3px);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 2000;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 .modal_container {
   background: #ffffff;
-  padding: 30px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 520px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-  animation: fadeInModal 0.25s ease-out;
+  padding: 35px;
+  border-radius: 16px;
+  width: 92%;
+  max-width: 680px; /* Slightly wider boundaries to allow neat layouts */
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
 }
 
-@keyframes fadeInModal {
-  from { transform: scale(0.92); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+.modal_scrollable {
+  max-height: 90vh;
+  overflow-y: auto;
+  overflow-x: hidden; /* Guaranteed no horizontal scroll bars */
 }
 
 .modal_container h3 {
   margin-top: 0;
-  margin-bottom: 20px;
-  font-size: 1.4rem;
-  color: #222;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 10px;
+  margin-bottom: 25px;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #000000;
+  text-align: center;
 }
 
 .modal_form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 .modal_field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.modal_field label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #555;
+.modal_field label,
+.file_upload_label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #3b59ff;
 }
 
 .modal_field input, 
-.modal_field textarea {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 0.95rem;
+.modal_field textarea,
+.modal_field select {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid #333333;
+  border-radius: 12px;
+  font-size: 15px;
   font-family: inherit;
-  transition: border 0.2s;
+  background: #ffffff;
+  color: #000000;
+  outline: none;
+  box-sizing: border-box; /* Crucial: ensures padding doesn't widen elements */
 }
 
 .modal_field input:focus, 
-.modal_field textarea:focus {
-  outline: none;
-  border-color: #ff385c;
+.modal_field textarea:focus,
+.modal_field select:focus {
+  border-color: #3b59ff;
 }
 
-.modal_buttons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 10px;
-}
-
-.modal_btn {
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  font-size: 0.9rem;
-  border: none;
-  transition: opacity 0.2s;
-}
-
-.modal_btn:hover {
-  opacity: 0.9;
-}
-
-.btn_dismiss {
-  background: #f0f0f0;
-  color: #333;
-}
-
-.btn_save_changes {
-  background: #ff385c;
-  color: #fff;
-}
-
-.modal_scrollable {
-  max-height: 85vh;
-  overflow-y: auto;
-}
-
+/* --- Responsive Grid Controllers --- */
 .modal_grid_2col {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* Limits cells from expanding */
+  gap: 16px;
+  width: 100%;
 }
 
 .modal_grid_3col {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* Allocates space exactly without bloating width */
   gap: 12px;
+  width: 100%;
 }
 
-/* --- Media Picker Accent Formats --- */
-.file_upload_label {
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 2px;
+/* --- Clean Image Upload Box Refactor --- */
+.file_input_container {
+  position: relative;
+  border: 2px dashed #333333;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: border-color 0.2s;
 }
 
-.file_input_field {
-  padding: 8px !important;
-  background-color: #fafafa;
-  border: 1px dashed #bbb !important;
+.file_input_container:hover {
+  border-color: #3b59ff;
+}
+
+.file_input_container input[type="file"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0; /* Fully hides system button while maintaining interactive click bounds */
   cursor: pointer;
 }
 
-.file_input_field:hover {
-  border-color: #ff385c !important;
+.upload_box_text {
+  font-size: 14px;
+  color: #555555;
+  font-weight: 500;
+}
+
+.upload_box_text span {
+  color: #3b59ff;
+  text-decoration: underline;
 }
 
 .file_count_badge {
-  margin: 4px 0 0 0;
-  font-size: 0.8rem;
+  margin: 6px 0 0 0;
+  font-size: 13px;
   color: #2e7d32;
+  font-weight: 500;
+}
+
+/* --- Dynamic Footer Buttons --- */
+.modal_buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 15px;
+}
+
+.modal_btn {
+  padding: 14px 40px;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 15px;
+  border: none;
+  min-width: 160px;
+  transition: opacity 0.2s;
+}
+
+.btn_dismiss {
+  background: #cc2b43;
+  color: #ffffff;
+}
+
+.btn_save_changes {
+  background: #3b59ff;
+  color: #ffffff;
+}
+
+.modal_btn:hover {
+  opacity: 0.9;
 }

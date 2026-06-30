@@ -1,92 +1,209 @@
 .form_container {
-  max-width: 850px;
-  margin: 30px auto;
-  padding: 25px;
-  border: 1px solid #dddddd;
-  border-radius: 12px;
-  font-family: sans-serif;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  background-color: aliceblue;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 40px;
+  background-color: #ffffff;
 }
 
 .form_container h2 {
-  margin-top: 0;
-  margin-bottom: 20px;
-  color: #222222;
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 500;
+  margin-bottom: 40px;
+  color: #000000;
 }
 
 .form_group {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  margin-bottom: 15px;
+  gap: 12px;
+  margin-bottom: 24px;
   width: 100%;
 }
 
-.form_group label {
-  font-size: 13px;
-  font-weight: bold;
-  color: #444444;
+.form_group label,
+.section_title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #3b59ff;
+  margin-bottom: 2px;
 }
 
 .form_group input, 
 .form_group textarea, 
 .form_group select {
-  padding: 10px;
-  border: 1px solid #cccccc;
-  border-radius: 8px;
-  font-size: 14px;
+  padding: 16px 20px;
+  border: 2px solid #333333;
+  border-radius: 12px;
+  font-size: 15px;
+  background-color: #ffffff;
+  color: #000000;
+  outline: none;
+  font-family: inherit;
+  appearance: none;
+}
+
+.form_group input:focus, 
+.form_group textarea:focus,
+.form_group select:focus {
+  border-color: #2b4eff; 
 }
 
 .form_group textarea {
-  height: 70px;
-  resize: vertical;
+  height: 140px;
+  resize: none;
 }
 
 .form_row {
   display: flex;
-  gap: 12px;
+  gap: 20px;
 }
 
+/* Amenities Section Layout */
 .amenities_section {
-  margin: 15px 0;
+  margin: 24px 0;
 }
 
-.section_title {
-  font-size: 13px;
+.amenities_input_row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.amenities_input_row input {
+  flex: 1;
+}
+
+.add_amenity_btn {
+  background-color: #3b59ff;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 0 30px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.add_amenity_btn:hover {
+  opacity: 0.9;
+}
+
+.amenities_tags_container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.amenity_tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f0f3ff;
+  border: 1px solid #3b59ff;
+  color: #3b59ff;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.amenity_tag button {
+  background: none;
+  border: none;
+  color: #3b59ff;
+  cursor: pointer;
+  font-size: 12px;
   font-weight: bold;
-  color: #444444;
-  display: block;
-  margin-bottom: 8px;
-}
-
-.checkbox_grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-
-.checkbox_grid label {
-  font-size: 13px;
+  padding: 0;
   display: flex;
   align-items: center;
-  gap: 6px;
-  cursor: pointer;
 }
 
-.submit_btn {
-  background-color: #ff385c;
-  color: white;
+.amenity_tag button:hover {
+  color: #cc2b43;
+}
+
+.file_upload_group input[type="file"] {
+  display: none;
+}
+
+.file_upload_group label {
+  color: #3b59ff;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.custom_upload_btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #3b59ff;
+  color: #ffffff !important;
+  font-weight: 500;
+  font-size: 15px;
+  padding: 14px 28px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 15px;
+  width: fit-content;
+  transition: opacity 0.2s;
+  user-select: none;
+}
+
+.custom_upload_btn:hover {
+  opacity: 0.9;
+}
+
+.selected_files {
+  border: 2px solid #333333;
+  border-radius: 12px;
+  min-height: 150px;
+  padding: 16px;
+  margin-bottom: 10px;
+  background: #ffffff;
+}
+
+form > .submit_btn {
+  display: none; 
+}
+
+.form_actions {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.action_btn_create {
+  background-color: #3b59ff;
+  color: #ffffff;
   border: none;
-  padding: 12px;
-  width: 100%;
-  border-radius: 8px;
+  padding: 16px 60px;
+  border-radius: 10px;
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 500;
   cursor: pointer;
-  margin-top: 5px;
+  min-width: 220px;
 }
 
-.submit_btn:hover {
-  background-color: #e01541;
+.action_btn_cancel {
+  background-color: #cc2b43;
+  color: #ffffff;
+  border: none;
+  padding: 16px 60px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  min-width: 220px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.action_btn_create:hover,
+.action_btn_cancel:hover {
+  opacity: 0.9;
 }

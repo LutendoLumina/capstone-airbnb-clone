@@ -1,24 +1,25 @@
-.location-page {
+.location_page {
   padding: 24px 80px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.location-heading {
+.location_heading {
   font-size: 1.1rem;
   font-weight: 400;
   color: #717171;
   margin-bottom: 16px;
 }
 
-.filter-chips {
+/* Filter Chips */
+.filter_chips {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
   margin-bottom: 16px;
 }
 
-.filter-chip {
+.filter_chip {
   padding: 8px 16px;
   border: 1px solid #ddd;
   border-radius: 24px;
@@ -27,26 +28,44 @@
   color: #222;
   cursor: pointer;
   transition: all 0.2s;
+  white-space: nowrap;
 }
 
-.filter-chip:hover {
+.filter_chip:hover {
   border-color: #222;
 }
 
-.filter-chip.active {
+.filter_chip.active {
   background-color: #222;
   color: #fff;
   border-color: #222;
 }
 
+/* Divider */
 .divider {
   border: none;
   border-top: 1px solid #ddd;
   margin-bottom: 24px;
 }
 
-.accommodation-list {
+/* Accommodation List */
+.accommodation_list {
   display: flex;
   flex-direction: column;
   gap: 0;
+}
+
+/* Loading & Error */
+.loading {
+  padding: 80px;
+  text-align: center;
+  color: #717171;
+  font-size: 1rem;
+}
+
+.error {
+  padding: 80px;
+  text-align: center;
+  color: #ff385c;
+  font-size: 1rem;
 }

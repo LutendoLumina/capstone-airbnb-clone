@@ -90,11 +90,13 @@ export default function ViewListings() {
     setEditingListing(null);
   };
 
-  const getImageUrl = (imageArray) => {
-    if (!imageArray || imageArray.length === 0) {
+  const getImageUrl = (listing) => {
+    if (!listing.images || listing.images.length === 0) {
       return "https://images.unsplash.com/photo-1570129477492-45c003edd2be";
     }
-    const cleanPath = imageArray[0].replace(/\\/g, "/");
+    const cleanPath = listing.images[0]
+      .replace(/\\/g, "/")
+      .replace("src/uploads/", "uploads/");
     return `http://localhost:3000/${cleanPath}?t=${new Date().getTime()}`;
   };
 
@@ -123,20 +125,38 @@ export default function ViewListings() {
         <div className="listings_grid">
           {listings.map((listing) => (
             <div key={listing._id} className="listing_card">
-              {/* Property Image Cover */}
+              {/* Left: Image + Buttons */}
               <div className="card_image_wrapper">
-                <img src={getImageUrl(listing.image)} alt={listing.title} />
+                <img src={getImageUrl(listing)} alt={listing.title} />
                 <span className="property_type_badge">{listing.type}</span>
+                <div className="admin_actions">
+                  <button
+                    className="action_btn update_btn"
+                    onClick={() => setEditingListing(listing)}
+                  >
+                    Update
+                  </button>
+                  <button
+                    className="action_btn delete_btn"
+                    onClick={() => handleDeleteClick(listing._id)}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
 
-              {/* Property Text Content Details */}
+              {/* Right: Details */}
               <div className="card_content">
-                <h3 className="property_title">{listing.title}</h3>
-                <p className="property_location">{listing.location}</p>
+                <div>
+                  <p className="property_location">
+                    {listing.type} in {listing.location}
+                  </p>
+                  <h3 className="property_title">{listing.title}</h3>
+                </div>
 
                 <p className="property_specs">
-                  {listing.guests} guests · {listing.bedrooms} beds ·{" "}
-                  {listing.bathrooms} bath
+                  {listing.guests} guests · Entire Home · {listing.bedrooms}{" "}
+                  beds · {listing.bathrooms} bath
                 </p>
 
                 <div className="card_amenities">
@@ -149,24 +169,8 @@ export default function ViewListings() {
 
                 <div className="card_footer">
                   <p className="property_price">
-                    <strong>R {listing.base_price}</strong> / night
+                    <strong>R {listing.base_price}</strong> /night
                   </p>
-
-                  {/* Administrative Action Control Panel */}
-                  <div className="admin_actions">
-                    <button
-                      className="action_btn update_btn"
-                      onClick={() => setEditingListing(listing)}
-                    >
-                      Update
-                    </button>
-                    <button
-                      className="action_btn delete_btn"
-                      onClick={() => handleDeleteClick(listing._id)}
-                    >
-                      Delete
-                    </button>
-                  </div>
                 </div>
               </div>
             </div>
