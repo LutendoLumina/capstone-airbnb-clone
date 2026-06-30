@@ -1,5 +1,5 @@
 import { body, query } from "express-validator";
-import Listing from "../../src/models/Listing";
+import Listing from "../models/Listing";
 
 export class ReservationValidator {
 
