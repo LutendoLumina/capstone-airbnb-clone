@@ -149,6 +149,13 @@
   font-weight: 600;
 }
 
+.user_greeting {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #222;
+  white-space: nowrap;
+}
+
 /* Dropdown */
 .dropdown_menu {
   position: absolute;

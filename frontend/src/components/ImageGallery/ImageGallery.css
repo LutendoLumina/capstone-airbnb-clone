@@ -29,20 +29,3 @@
   height: 196px;
   object-fit: cover;
 }
-
-.show-all-btn {
-  position: absolute;
-  bottom: 16px;
-  right: 16px;
-  background: #fff;
-  border: 1px solid #222;
-  border-radius: 8px;
-  padding: 8px 16px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.show-all-btn:hover {
-  background-color: #f7f7f7;
-}

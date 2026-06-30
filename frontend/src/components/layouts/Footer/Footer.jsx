@@ -47,10 +47,10 @@ function Footer() {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>© 2022 Airbnb, Inc. · Privacy · Terms · Sitemap</p>
+        <p>© 2026 Airbnb Clone, Inc. · Privacy · Terms · Sitemap</p>
         <div className="footer-right">
-          <span>English (US)</span>
-          <span>USD</span>
+          <span>English (RSA)</span>
+          <span>ZA</span>
         </div>
       </div>
     </footer>

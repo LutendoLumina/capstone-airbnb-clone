@@ -74,7 +74,7 @@ function AccommodationCard({ accommodation }) {
             <span className="reviews">({reviews || 0} reviews)</span>
           </div>
           <div className="card_price">
-            <span className="price">${base_price}</span>
+            <span className="price">R{base_price}</span>
             <span className="per_night"> /night</span>
           </div>
         </div>

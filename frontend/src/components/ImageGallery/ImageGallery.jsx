@@ -13,7 +13,6 @@ function ImageGallery({ images }) {
           </div>
         ))}
       </div>
-      <button className="show-all-btn">Show all photos</button>
     </div>
   );
 }

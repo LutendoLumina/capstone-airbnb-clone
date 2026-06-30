@@ -169,7 +169,7 @@ export default function CreateListing() {
               <option value="Private room">Private room</option>
               <option value="Shared room">Shared room</option>
               <option value="Hotel room">Hotel room</option>
-              <option value="Hotel room">Apartment</option>
+              <option value="Entire apartment">Entire apartment</option>
             </select>
           </div>
 

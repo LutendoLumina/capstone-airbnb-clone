@@ -81,7 +81,7 @@ export default function App() {
           <Route path="/location" element={<LocationPage />} />
           <Route path="/listings/:id" element={<LocationDetailsPage />} />
 
-          {/* Falback - redirects unknown paths back to Home  */}
+          {/* Fallback - redirects unknown paths back to Home  */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

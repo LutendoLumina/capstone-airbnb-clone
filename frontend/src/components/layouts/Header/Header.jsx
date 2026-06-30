@@ -7,7 +7,6 @@ import { CgProfile } from "react-icons/cg";
 import "./Header.css";
 
 export default function Header({ user, onLogout }) {
-
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [location, setLocation] = useState("");
   const [checkIn, setCheckIn] = useState("");
@@ -65,7 +64,9 @@ export default function Header({ user, onLogout }) {
           >
             <option value="">Select a location</option>
             {locations.map((loc) => (
-              <option key={loc} value={loc}>{loc}</option>
+              <option key={loc} value={loc}>
+                {loc}
+              </option>
             ))}
           </select>
         </div>
@@ -115,15 +116,20 @@ export default function Header({ user, onLogout }) {
 
       {/* Right Menu */}
       <div className="menu">
-        <a href="#" className="become_host_link">Become a host</a>
+        <a href="#" className="become_host_link">
+          Become a host
+        </a>
 
         <div className="profile_menu_container">
           <button className="menu_dropdown_toggle" onClick={toggleDropdown}>
             <IoMenuOutline className="menu_icon" />
             {user ? (
-              <div className="avatar_placeholder">
-                {user.username.charAt(0).toUpperCase()}
-              </div>
+              <>
+                <span className="user_greeting">Hello, {user.username}</span>
+                <div className="avatar_placeholder">
+                  {user.username.charAt(0).toUpperCase()}
+                </div>
+              </>
             ) : (
               <CgProfile className="profile_icon" />
             )}
@@ -133,25 +139,69 @@ export default function Header({ user, onLogout }) {
             <div className="dropdown_menu">
               {!user && (
                 <>
-                  <Link to="/login" className="dropdown_item" onClick={closeDropdown}>Log In</Link>
+                  <Link
+                    to="/login"
+                    className="dropdown_item"
+                    onClick={closeDropdown}
+                  >
+                    Log In
+                  </Link>
                 </>
               )}
               {user?.type === "admin" && (
                 <>
-                  <Link to="/listings" className="dropdown_item" onClick={closeDropdown}>View Listings</Link>
-                  <Link to="/reservations" className="dropdown_item" onClick={closeDropdown}>View Reservations</Link>
-                  <Link to="/create-listing" className="dropdown_item" onClick={closeDropdown}>Create Listing</Link>
+                  <Link
+                    to="/listings"
+                    className="dropdown_item"
+                    onClick={closeDropdown}
+                  >
+                    View Listings
+                  </Link>
+                  <Link
+                    to="/reservations"
+                    className="dropdown_item"
+                    onClick={closeDropdown}
+                  >
+                    View Reservations
+                  </Link>
+                  <Link
+                    to="/create-listing"
+                    className="dropdown_item"
+                    onClick={closeDropdown}
+                  >
+                    Create Listing
+                  </Link>
                   <hr />
-                  <button className="dropdown_item logout_btn" onClick={() => { onLogout(); closeDropdown(); navigate("/"); }}>
+                  <button
+                    className="dropdown_item logout_btn"
+                    onClick={() => {
+                      onLogout();
+                      closeDropdown();
+                      navigate("/");
+                    }}
+                  >
                     Log Out
                   </button>
                 </>
               )}
               {user?.type === "user" && (
                 <>
-                  <Link to="/my-reservations" className="dropdown_item" onClick={closeDropdown}>View Reservations</Link>
+                  <Link
+                    to="/my-reservations"
+                    className="dropdown_item"
+                    onClick={closeDropdown}
+                  >
+                    View Reservations
+                  </Link>
                   <hr />
-                  <button className="dropdown_item logout_btn" onClick={() => { onLogout(); closeDropdown(); navigate("/"); }}>
+                  <button
+                    className="dropdown_item logout_btn"
+                    onClick={() => {
+                      onLogout();
+                      closeDropdown();
+                      navigate("/");
+                    }}
+                  >
                     Log Out
                   </button>
                 </>

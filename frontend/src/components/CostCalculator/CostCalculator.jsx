@@ -95,7 +95,7 @@ function CostCalculator({ accommodation }) {
     <div className="cost-calculator">
       <div className="calculator-header">
         <div className="calculator-price">
-          <span className="calc-price">${base_price}</span>
+          <span className="calc-price">R{base_price}</span>
           <span className="calc-per-night"> /night</span>
         </div>
         <div className="calc-rating">
@@ -159,32 +159,32 @@ function CostCalculator({ accommodation }) {
         <div className="cost-breakdown">
           <div className="cost-row">
             <span>
-              ${base_price} x {nights} nights
+              R {base_price} x {nights} nights
             </span>
-            <span>${baseTotal}</span>
+            <span>R {baseTotal}</span>
           </div>
           {discount > 0 && (
             <div className="cost-row discount">
               <span>Weekly discount</span>
-              <span>-${discount}</span>
+              <span>-R {discount}</span>
             </div>
           )}
           <div className="cost-row">
             <span>Cleaning fee</span>
-            <span>${cleaning_fee}</span>
+            <span>R {cleaning_fee}</span>
           </div>
           <div className="cost-row">
             <span>Service fee</span>
-            <span>${service_fee}</span>
+            <span>R {service_fee}</span>
           </div>
           <div className="cost-row">
             <span>Occupancy taxes and fees</span>
-            <span>${occupancy_taxes}</span>
+            <span>R {occupancy_taxes}</span>
           </div>
           <hr className="calc-divider" />
           <div className="cost-row total">
             <span>Total</span>
-            <span>${total}</span>
+            <span>R {total}</span>
           </div>
         </div>
       )}

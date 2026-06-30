@@ -30,6 +30,10 @@
   cursor: pointer;
 }
 
+.shop_text button:hover {
+  background-color: #ee3db9;
+}
+
 .shop_image img {
   width: 700px;
   height: auto;
