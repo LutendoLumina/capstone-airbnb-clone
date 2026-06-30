@@ -1,6 +1,6 @@
 import { NextFunction, Response } from "express";
-import Reservation from "../../src/models/Reservation";
-import Listing from "../../src/models/Listing";
+import Reservation from "../models/Reservation";
+import Listing from "../models/Listing";
 
 export class ReservationController {
 
