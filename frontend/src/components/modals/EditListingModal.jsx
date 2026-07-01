@@ -62,16 +62,13 @@ export default function EditListingModal({
         });
       }
 
-      const response = await fetch(
-        `http://localhost:3000/api/listings/update/${listing._id}`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: formData,
+      const response = await fetch(`/api/listings/update/${listing._id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+        body: formData,
+      });
 
       const result = await response.json();
 

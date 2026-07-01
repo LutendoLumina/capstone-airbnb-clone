@@ -9,7 +9,7 @@ export default function UserReservationsPage() {
   const fetchReservations = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:3000/api/reservations/user", {
+      const response = await fetch("/api/reservations/user", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -35,11 +35,12 @@ export default function UserReservationsPage() {
   }, []);
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to cancel this reservation?")) return;
+    if (!window.confirm("Are you sure you want to cancel this reservation?"))
+      return;
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:3000/api/reservations/${id}`, {
+      const response = await fetch(`/api/reservations/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -57,7 +58,8 @@ export default function UserReservationsPage() {
     }
   };
 
-  if (loading) return <div className="loader">Loading your reservations...</div>;
+  if (loading)
+    return <div className="loader">Loading your reservations...</div>;
 
   return (
     <div className="user-reservations-page">

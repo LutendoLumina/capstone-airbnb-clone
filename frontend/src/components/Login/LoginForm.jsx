@@ -16,7 +16,7 @@ export default function LoginForm({ onLoginSuccess }) {
 
     try {
       //  Fire the network request to backend
-      const response = await fetch("http://localhost:3000/api/user/login", {
+      const response = await fetch("/api/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -43,10 +43,10 @@ export default function LoginForm({ onLoginSuccess }) {
       onLoginSuccess(loggedInUser);
 
       // Redirect to the admin dashboard
-      if(data.user.type === "admin") {
+      if (data.user.type === "admin") {
         navigate("/listings");
       } else {
-        navigate("/")
+        navigate("/");
       }
     } catch (err) {
       setError(err.message);

@@ -27,7 +27,7 @@ function LocationPage() {
       : accommodations;
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/listings/public")
+    fetch("/api/listings/public")
       .then((res) => res.json())
       .then((data) => {
         setAccommodations(data.data);
@@ -44,7 +44,6 @@ function LocationPage() {
 
   return (
     <div className="location_page">
-      
       <h2 className="location_heading">
         {filtered.length}+ stays{" "}
         {locationParam ? `in ${locationParam}` : "available"}

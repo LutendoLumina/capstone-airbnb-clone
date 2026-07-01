@@ -23,7 +23,7 @@ function LocationDetailsPage() {
       : 0;
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/listings/public/${id}`)
+    fetch(`/api/listings/public/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setAccommodation(data.data);
@@ -59,8 +59,7 @@ function LocationDetailsPage() {
   } = accommodation;
 
   const fixedImages = images.map(
-    (img) =>
-      `http://localhost:3000/uploads/${img.replace(/\\/g, "/").replace("src/uploads/", "")}`,
+    (img) => `/uploads/${img.replace(/\\/g, "/").replace("src/uploads/", "")}`,
   );
 
   return (

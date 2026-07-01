@@ -22,7 +22,7 @@ export default function Header({ user, onLogout }) {
 
   // Fetch unique locations from backend
   useEffect(() => {
-    fetch("http://localhost:3000/api/listings/public")
+    fetch("/api/listings/public")
       .then((res) => res.json())
       .then((data) => {
         console.log("Listings data:", data);

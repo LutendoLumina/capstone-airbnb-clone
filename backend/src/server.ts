@@ -4,11 +4,10 @@ import { getEnviromentVariables } from "./enviroments/enviroment";
 import { Utils } from "./utils/Utils";
 import * as bodyParser from "body-parser";
 import cors from "cors";
-import * as path from 'path';
+import * as path from "path";
 import UserRouters from "./routers/UserRouters";
 import ListingRouters from "./routers/ListingRouters";
 import ReservationRouters from "./routers/ReservationRouters";
-
 
 export class Server {
   public app = express();
@@ -54,10 +53,29 @@ export class Server {
   }
 
   allowCors() {
-    this.app.use(cors({ origin: 'http://localhost:5173' }));
+    this.app.use(
+      cors({
+        origin: [
+          "http://localhost:5173",
+          "https://morning-cliffs-41967-82d70048a754.herokuapp.com",
+        ],
+      }),
+    );
 
-    this.app.use('/uploads', express.static(path.join(__dirname, '../src/uploads')));
+    this.app.use(
+      "/uploads",
+      express.static(path.join(__dirname, "../src/uploads")),
+    );
 
+    this.app.use(
+      express.static(path.resolve(__dirname, "../../../frontend/dist")),
+    );
+
+    this.app.get(/^((?!\/api).)*$/, (req, res) => {
+      res.sendFile(
+        path.resolve(__dirname, "../../../frontend/dist/index.html"),
+      );
+    });
   }
 
   setRoutes() {

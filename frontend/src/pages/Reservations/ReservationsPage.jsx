@@ -10,16 +10,13 @@ export default function ReservationsPage() {
     try {
       const token = localStorage.getItem("token");
       // Calling our newly completed backend host route to see who booked our properties
-      const response = await fetch(
-        "http://localhost:3000/api/reservations/host",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
+      const response = await fetch("/api/reservations/host", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
-      );
+      });
 
       const result = await response.json();
       if (result.success) {
@@ -44,15 +41,12 @@ export default function ReservationsPage() {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(
-        `http://localhost:3000/api/reservations/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      const response = await fetch(`/api/reservations/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
 
       const result = await response.json();
       if (result.success) {

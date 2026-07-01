@@ -14,16 +14,13 @@ export default function ViewListings() {
       try {
         const token = localStorage.getItem("token");
 
-        const response = await fetch(
-          "http://localhost:3000/api/listings/viewListings",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
+        const response = await fetch("/api/listings/viewListings", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
-        );
+        });
         const result = await response.json();
 
         if (response.ok) {
@@ -50,16 +47,13 @@ export default function ViewListings() {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch(
-        `http://localhost:3000/api/listings/delete/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
+      const response = await fetch(`/api/listings/delete/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
-      );
+      });
 
       const result = await response.json();
 
@@ -97,7 +91,7 @@ export default function ViewListings() {
     const cleanPath = listing.images[0]
       .replace(/\\/g, "/")
       .replace("src/uploads/", "uploads/");
-    return `http://localhost:3000/${cleanPath}?t=${new Date().getTime()}`;
+    return `/${cleanPath}?t=${new Date().getTime()}`;
   };
 
   if (loading)

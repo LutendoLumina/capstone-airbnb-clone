@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FaRegHeart, FaStar } from 'react-icons/fa';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { FaRegHeart, FaStar } from "react-icons/fa";
 import "./AccomodationCard.css";
 
 function AccommodationCard({ accommodation }) {
@@ -23,7 +23,7 @@ function AccommodationCard({ accommodation }) {
   } = accommodation;
 
   const imageUrl = images?.[0]
-    ? `http://localhost:3000/uploads/${images[0].replace(/\\/g, "/").replace("src/uploads/", "")}`
+    ? `/uploads/${images[0].replace(/\\/g, "/").replace("src/uploads/", "")}`
     : "/images/placeholder.jpg";
 
   return (

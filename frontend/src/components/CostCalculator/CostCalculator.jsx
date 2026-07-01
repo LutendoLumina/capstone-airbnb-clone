@@ -32,7 +32,8 @@ function CostCalculator({ accommodation }) {
   const nights = calculateNights();
   const baseTotal = base_price * nights;
   const discount = nights >= 7 ? weekly_discount : 0;
-  const total = baseTotal - discount + cleaning_fee + service_fee + occupancy_taxes;
+  const total =
+    baseTotal - discount + cleaning_fee + service_fee + occupancy_taxes;
 
   const handleReserve = async () => {
     const token = localStorage.getItem("token");
@@ -57,7 +58,7 @@ function CostCalculator({ accommodation }) {
     setMessage("");
 
     try {
-      const response = await fetch("http://localhost:3000/api/reservations/create", {
+      const response = await fetch("/api/reservations/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -89,7 +90,8 @@ function CostCalculator({ accommodation }) {
           <span className="calc-per-night"> /night</span>
         </div>
         <div className="calc-rating">
-          ⭐ {rating || "New"} · <span className="calc-reviews">{reviews || 0} reviews</span>
+          ⭐ {rating || "New"} ·{" "}
+          <span className="calc-reviews">{reviews || 0} reviews</span>
         </div>
       </div>
 
@@ -135,14 +137,20 @@ function CostCalculator({ accommodation }) {
         />
       </div>
 
-      <button className="reserve-btn" onClick={handleReserve} disabled={loading}>
+      <button
+        className="reserve-btn"
+        onClick={handleReserve}
+        disabled={loading}
+      >
         {loading ? "Reserving..." : "Reserve"}
       </button>
 
       <p className="no-charge-note">You won't be charged yet</p>
 
       {message && (
-        <p className={`reserve-message ${message.includes("confirmed") ? "success" : "error"}`}>
+        <p
+          className={`reserve-message ${message.includes("confirmed") ? "success" : "error"}`}
+        >
           {message}
         </p>
       )}
@@ -150,7 +158,9 @@ function CostCalculator({ accommodation }) {
       {nights > 0 && (
         <div className="cost-breakdown">
           <div className="cost-row">
-            <span>R{base_price} x {nights} nights</span>
+            <span>
+              R{base_price} x {nights} nights
+            </span>
             <span>R{baseTotal}</span>
           </div>
           {discount > 0 && (
