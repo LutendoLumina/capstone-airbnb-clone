@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./CostCalculator.css";
 
-function CostCalculator({ accommodation }) {
+function CostCalculator({ accommodation, bookedDates = [] }) {
   const [checkIn, setCheckIn] = useState(null);
   const [checkOut, setCheckOut] = useState(null);
   const [guests, setGuests] = useState(1);
@@ -106,6 +106,7 @@ function CostCalculator({ accommodation }) {
             startDate={checkIn}
             endDate={checkOut}
             minDate={new Date()}
+            excludeDates={bookedDates}
             placeholderText="mm/dd/yyyy"
             className="date-picker-input"
           />
@@ -119,6 +120,7 @@ function CostCalculator({ accommodation }) {
             startDate={checkIn}
             endDate={checkOut}
             minDate={checkIn || new Date()}
+            excludeDates={bookedDates}
             placeholderText="mm/dd/yyyy"
             className="date-picker-input"
           />

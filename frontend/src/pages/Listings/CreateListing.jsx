@@ -22,6 +22,9 @@ export default function CreateListing() {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const [rating, setRating] = useState("");
+  const [reviews, setReviews] = useState("");
+
   const handleAddAmenity = (e) => {
     e.preventDefault();
     if (amenityInput.trim() !== "") {
@@ -66,6 +69,8 @@ export default function CreateListing() {
     formData.append("occupancy_taxes", occupancyTaxes || "0");
     formData.append("weekly_discount", weeklyDiscount || "0");
     formData.append("amenities", JSON.stringify(amenities));
+    formData.append("rating", rating || "0");
+    formData.append("reviews", reviews || "0");
 
     selectedFiles.forEach((file) => {
       formData.append("images", file);
@@ -288,6 +293,30 @@ export default function CreateListing() {
               ))}
             </div>
           )}
+        </div>
+
+        <div className="form_row">
+          <div className="form_group">
+            <label>Rating (0-5)</label>
+            <input
+              type="number"
+              placeholder="4.5"
+              min="0"
+              max="5"
+              step="0.1"
+              value={rating}
+              onChange={(e) => setRating(e.target.value)}
+            />
+          </div>
+          <div className="form_group">
+            <label>Number of Reviews</label>
+            <input
+              type="number"
+              placeholder="120"
+              value={reviews}
+              onChange={(e) => setReviews(e.target.value)}
+            />
+          </div>
         </div>
 
         <div className="form_group file_upload_group">

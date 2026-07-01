@@ -63,7 +63,7 @@ export class ListingController {
   static async getListingById(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-      const listing = await Listing.findById(id);
+      const listing = await Listing.findById(id).populate("createdBy", "username");
 
       if (!listing) {
         res.status(404);

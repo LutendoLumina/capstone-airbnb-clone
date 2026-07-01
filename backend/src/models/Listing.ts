@@ -16,6 +16,8 @@ const listingSchema = new mongoose.Schema(
     weekly_discount: { type: Number, required: false, default: 0 },
     amenities: [{ type: String }],
     images: [{ type: String }],
+    rating: { type: Number, required: false, default: 0 },
+    reviews: { type: Number, required: false, default: 0 },
     createdBy: {
       type: mongoose.Types.ObjectId,
       ref: "users",

@@ -77,4 +77,28 @@ export class ReservationController {
       next(e);
     }
   }
+
+  static async getBookedDates(req: any, res: Response, next: NextFunction) {
+  const { listing_id } = req.params;
+
+  try {
+    const reservations = await Reservation.find({ listing_id }).select("start_date end_date");
+
+    // Generate all individual booked dates between start and end
+    const bookedDates: Date[] = [];
+    reservations.forEach((res) => {
+      const start = new Date(res.start_date);
+      const end = new Date(res.end_date);
+      const current = new Date(start);
+      while (current <= end) {
+        bookedDates.push(new Date(current));
+        current.setDate(current.getDate() + 1);
+      }
+    });
+
+    res.status(200).json({ success: true, data: bookedDates });
+  } catch (e) {
+    next(e);
+  }
+}
 }

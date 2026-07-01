@@ -29,6 +29,12 @@ class ReservationRouters {
       (req: Request, res: Response, next: NextFunction) =>
         ReservationController.getReservationsByUser(req, res, next),
     );
+
+    this.router.get(
+      "/booked-dates/:listing_id",
+      (req: Request, res: Response, next: NextFunction) =>
+        ReservationController.getBookedDates(req, res, next),
+    );
   }
 
   postRoutes() {

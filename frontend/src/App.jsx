@@ -7,7 +7,7 @@ import ViewListings from "./pages/Listings/ViewListings";
 import LoginPage from "./pages/Login/LoginPage";
 import ReservationsPage from "./pages/Reservations/ReservationsPage";
 import UserReservationsPage from "./pages/Reservations/UserReservationsPage";
-import UserHomePage from "./pages/Home/UserHomePage";
+import HomePage from "./pages/Home/HomePage";
 import LocationPage from "./pages/Location/LocationPage";
 import LocationDetailsPage from "./pages/Location/LocationDetailsPage";
 
@@ -32,7 +32,7 @@ export default function App() {
 
       <main style={{ padding: "10px" }}>
         <Routes>
-          <Route path="/" element={<UserHomePage />} />
+          <Route path="/" element={<HomePage />} />
 
           <Route
             path="/login"

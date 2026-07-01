@@ -17,6 +17,8 @@ function LocationDetailsPage() {
   const [checkIn, setCheckIn] = useState(null);
   const [checkOut, setCheckOut] = useState(null);
 
+  const [bookedDates, setBookedDates] = useState([]);
+
   const nights =
     checkIn && checkOut
       ? Math.round((checkOut - checkIn) / (1000 * 60 * 60 * 24))
@@ -34,6 +36,19 @@ function LocationDetailsPage() {
         setLoading(false);
       });
   }, [id]);
+
+  useEffect(() => {
+    if (accommodation?._id) {
+      fetch(`/api/reservations/booked-dates/${accommodation._id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            setBookedDates(data.data.map((d) => new Date(d)));
+          }
+        })
+        .catch(() => {});
+    }
+  }, [accommodation]);
 
   if (loading) return <div className="loading">Loading...</div>;
   if (error) return <div className="error">{error}</div>;
@@ -81,45 +96,58 @@ function LocationDetailsPage() {
         <div className="details-left">
           <div className="host-info">
             <div>
-              <h2>{type} hosted by Host</h2>
+              <h2>
+                {type} hosted by {accommodation.createdBy?.username}
+              </h2>
               <p>
                 {guests} guests · {bedrooms} bedrooms · {bathrooms} bathrooms
               </p>
             </div>
-            <div className="host-avatar">H</div>
+            <div className="host-avatar">
+              {" "}
+              {accommodation.createdBy?.username?.charAt(0).toUpperCase() ||
+                "H"}
+            </div>
           </div>
 
           <hr className="details-divider" />
 
           <div className="highlights">
-            {enhancedCleaning && (
-              <div className="highlight-item">
-                <span className="highlight-icon">✨</span>
-                <div>
-                  <p className="highlight-title">Enhanced Clean</p>
-                  <p className="highlight-desc">
-                    Committed to Airbnb's enhanced cleaning process.
-                  </p>
-                </div>
-              </div>
-            )}
-            {selfCheckIn && (
-              <div className="highlight-item">
-                <span className="highlight-icon">🔑</span>
-                <div>
-                  <p className="highlight-title">Self check-in</p>
-                  <p className="highlight-desc">
-                    Check yourself in with the keypad.
-                  </p>
-                </div>
-              </div>
-            )}
             <div className="highlight-item">
               <span className="highlight-icon">🏠</span>
               <div>
                 <p className="highlight-title">Entire home</p>
                 <p className="highlight-desc">
                   You'll have the apartment to yourself.
+                </p>
+              </div>
+            </div>
+            <div className="highlight-item">
+              <span className="highlight-icon">✨</span>
+              <div>
+                <p className="highlight-title">Enhanced Clean</p>
+                <p className="highlight-desc">
+                  Committed to Airbnb's enhanced cleaning process.
+                </p>
+              </div>
+            </div>
+            <div className="highlight-item">
+              <span className="highlight-icon">🔑</span>
+              <div>
+                <p className="highlight-title">Self check-in</p>
+                <p className="highlight-desc">
+                  Check yourself in with the keypad.
+                </p>
+              </div>
+            </div>
+            <div className="highlight-item">
+              <span className="highlight-icon">📅</span>
+              <div>
+                <p className="highlight-title">
+                  Free cancellation before check-in
+                </p>
+                <p className="highlight-desc">
+                  Get a full refund if you change your mind.
                 </p>
               </div>
             </div>
@@ -172,6 +200,7 @@ function LocationDetailsPage() {
                 inline
                 minDate={new Date()}
                 monthsShown={2}
+                excludeDates={bookedDates}
               />
             </div>
             {(checkIn || checkOut) && (
@@ -302,7 +331,10 @@ function LocationDetailsPage() {
         </div>
 
         <div className="details-right">
-          <CostCalculator accommodation={accommodation} />
+          <CostCalculator
+            accommodation={accommodation}
+            bookedDates={bookedDates}
+          />
         </div>
       </div>
     </div>
