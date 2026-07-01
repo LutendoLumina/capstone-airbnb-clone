@@ -67,14 +67,10 @@ export class Server {
       express.static(path.join(__dirname, "../src/uploads")),
     );
 
-    this.app.use(
-      express.static(path.resolve(__dirname, "../../../frontend/dist")),
-    );
+    this.app.use(express.static(path.resolve(__dirname, "../public")));
 
     this.app.get(/^((?!\/api).)*$/, (req, res) => {
-      res.sendFile(
-        path.resolve(__dirname, "../../../frontend/dist/index.html"),
-      );
+      res.sendFile(path.resolve(__dirname, "../public/index.html"));
     });
   }
 
