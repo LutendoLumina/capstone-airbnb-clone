@@ -47,7 +47,7 @@ export class ListingController {
 
   static async getAllListings(req: Request, res: Response, next: NextFunction) {
     try {
-      // Fetch all listings from MongoDB and sort them by newest first
+      // Fetch all listings from database and sort them by newest first
       const listings = await Listing.find().sort({ createdAt: -1 });
 
       res.status(200).json({

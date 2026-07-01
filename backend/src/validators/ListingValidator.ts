@@ -1,7 +1,22 @@
 import { body } from "express-validator";
+import { Request, Response, Router, NextFunction } from "express";
 import "multer";
 
 export class ListingValidator {
+
+  static parseAmenities(req: Request, res: Response, next: NextFunction) {
+    if (typeof req.body.amenities === "string") {
+      try {
+        req.body.amenities = JSON.parse(req.body.amenities);
+      } catch (e) {
+        req.body.amenities = req.body.amenities
+          .split(",")
+          .map((s: string) => s.trim());
+      }
+    }
+    next();
+  }
+
   static createListingValidator() {
     return [
       body("title", "Title is required").isString(),

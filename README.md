@@ -1,13 +1,16 @@
 **An Airbnb Clone**
 
-This repository contains the full-stack architecture for an Airbnb Clone build in MERN stack architecture. The application serves two distinct user roles: Administrators (who manage listings and property operations) and Customers (who search for locations, view property details, and manage reservations).
+A full-stack application of an Airbnb Clone build in MERN stack architecture. The application serves two distinct user roles: Administrators (who manage listings and property operations) and Customers (who search for locations, view property details, and manage reservations).
 
 **Live Deployment**
 
 **Heroku Live Link:** \[https://morning-cliffs-41967-82d70048a754.herokuapp.com/\]
 
+---
+
 **Project Structure**
 
+```
 CAPSTONE-PROJECT/  
 └── airbnb-clone/  
 ├── backend/  
@@ -32,12 +35,17 @@ CAPSTONE-PROJECT/
 │ └── vite.config.js # Vite bundler configuration  
 ├── .gitignore  
 └── README.md
+```
+
+---
 
 **System Architecture & Data Flow**
 
 Data flows seamlessly across the three tiers of the application:
 
 Frontend (React/Vite) ↔ Backend API (Node/TypeScript) ↔ Database Layer (MongoDB Atlas)
+
+---
 
 **Features & Progress Completed**
 
@@ -52,12 +60,14 @@ Frontend (React/Vite) ↔ Backend API (Node/TypeScript) ↔ Database Layer (Mong
 - **User Reservations Portal:** Dedicated protected panel (/my-reservations) rendering an interactive tabular layout of a user's bookings with structural color-coded status badges (confirmed, pending, cancelled) and instant cancellation triggers.
 - **Client-Side Routing & Session Persistence:** Integrated react-router-dom (v6+) handling history, declarative path protection guards, and immediate startup recovery from localStorage to safeguard active user sessions against data loss during hard page refreshes.
 
+---
+
 **2\. Backend Server Layer (Node.js & TypeScript)**
 
 - **Object-Oriented Lifecycle:** Modular Server class framework handling separate app configurations, endpoint routing, and global exception interceptors.
 - **Operational Health Checks:** Live /api/health testing path tracking clean backend runtime execution.
 - **Dynamic Environment Injection:** Fixed module loading race conditions by transitioning plain configuration objects into executable Arrow Functions to defer variable lookups until after the application bootstrapper loads root .env values.
-- **DNS Resolution Override:** Bypassed local network ISP firewalls and SRV lookup drop failures (querySrv ECONNREFUSED) by coupling Node's native dns module with Google Public DNS (8.8.8.8 / 8.8.4.4) at application boot-up.
+- **DNS Resolution Override:** Bypassed local network ISP firewalls and SRV lookup drop failures (querySrv ECONNREFUSED) by coupling Node's native dns module with Google Public `DNS (8.8.8.8 / 8.8.4.4)` at application boot-up.
 - **Secure Authentication Pipeline:**  
    \- Generates secure un-brute-forceable JWT signing using 32-byte hexadecimal random keys via Node's native crypto module.  
    \- Asynchronous password hashing and mathematical comparisons using bcrypt.  
@@ -65,6 +75,8 @@ Frontend (React/Vite) ↔ Backend API (Node/TypeScript) ↔ Database Layer (Mong
 - **Advanced Multipart Accommodation Listing Engine:** Deploys local multer.diskStorage stream pipelines to handle multi-file uploads with timestamped hash file naming into static folders (src/uploads/images), coupled with custom inline middleware to decode raw text layout brackets back into native string arrays before verification.
 - **RESTful CRUD Operations:** Handles public listing streams with chronological sorting (-1), admin deletion routes via Mongoose context handlers (findByIdAndDelete), and flexible partial update paths (PUT) via state spread layers and .optional() schema filters to allow overwriting standalone attributes without destroying existing values.
 - **Multi-Channel Reservation Tracking Engine:** Manages automated validation checkpoints (ReservationValidator) enforcing precise ISO 8601 timeline checks and cross-collection verification sweeps before processing bookings. Provides dual-channel optimization: a Guest Stream filtering specific user tokens and a Host Dashboard View tracking multi-user check-ins.
+
+---
 
 **3\. Database & Schema Layer (Mongoose & MongoDB Atlas)**
 
@@ -74,6 +86,8 @@ Frontend (React/Vite) ↔ Backend API (Node/TypeScript) ↔ Database Layer (Mong
 - **Relational Reference Mapping:** Implements structural document tracking linking unique occupant profiles (users) directly to active properties (Accommodation references) while managing strict temporal fields (start_date, end_date) and total price metrics.
 - **Dual User Seeding:** Extended automated database seed scripts (seedUser.ts) to easily provision both an administrator account (<admin@airbnb.com>) and a regular customer account (<user@airbnb.com>) with pre-hashed passwords inside cloud clusters.
 
+---
+
 **Administrative Authentication & Seeding**
 
 To safeguard administrative privileges, accounts are pre-seeded directly into the MongoDB Atlas cluster rather than exposing public registration pipelines.
@@ -82,30 +96,36 @@ To safeguard administrative privileges, accounts are pre-seeded directly into th
 
 Ensure your local backend/.env file is active and configured correctly. Note: This file is explicitly blocked by .gitignore to prevent credential exposure:
 
+```bash
 PORT=3000  
 DEV_DB_URI=mongodb+srv://&lt;username&gt;:&lt;password&gt;@cluster.mongodb.net/airbnb  
 JWT_SECRET=your_cryptographic_secret_key_here
+```
 
 **2\. Seeding the Administrator & User Accounts**
 
 To instantly instantiate both the administrator and regular user profiles with securely hashed passwords inside your cloud cluster, execute the standalone database seed runner:
 
 \# Navigate to the backend directory  
+```bash
 cd backend  
 <br/>\# Execute the TypeScript seeder script  
 npx ts-node src/seedUser.ts
+```
 
 **3\. Credentials for Testing**
 
-**Admin Account:  
-**\- Email: <admin@airbnb.com>  
+**Admin Account**:  
+\- Email: <admin@airbnb.com>  
 \- Password: password123  
 \- Redirects to: /listings (Admin Dashboard)
 
-**Regular User Account:  
-**\- Email: <user@airbnb.com>  
+**Regular User Account:**
+\- Email: <user@airbnb.com>  
 \- Password: password123  
 \- Redirects to: / (Home Page)
+
+---
 
 **Heroku Deployment Architecture**
 
@@ -115,6 +135,7 @@ The application uses a monorepo-style embedded compilation approach to serve bot
 
 When deploying, the React frontend is compiled locally into optimized static assets. These production-ready bundles are integrated into the backend's public/ directory so Express can act as a web server layer routing static web pages alongside dynamic API tracks.
 
+```bash
 backend/  
 ├── dist/ <-- Compiled JavaScript Server Code (via tsc)  
 ├── public/ <-- Production React Frontend Assets (Vite Bundle)  
@@ -122,13 +143,16 @@ backend/
 │ └── assets/  
 ├── src/  
 └── package.json
+```
 
 **2\. Heroku Core Environment Configurations**
 
 Heroku handles server instantiation using dynamic parameters. Ensure your target app is provisioned with the production environment values matching your backend logic names:
 
+```bash
 heroku config:set PROD_DB_URI=your_production_mongodb_connection_string --app your-app-name  
 heroku config:set PROD_JWT_ACCESS_TOKEN_SECRET_KEY=your_production_jwt_secret_key --app your-app-name
+```
 
 **3\. Build & Deployment Lifecycle**
 
@@ -136,15 +160,21 @@ Because the deployment pipelines use a Git Subtree wrapper to keep the deploymen
 
 - Compile Frontend: Navigate to the frontend directory and build the production distribution folder:
 
+```bash
 cd frontend  
 npm run build
+```
 
 - Synchronize Build: Move the generated dist/ contents directly into your backend/public/ directory.
 - Deploy Subtree: Commit all modifications from your root repository root folder and push the isolated backend folder directly up to Heroku:
 
+```bash
 git add .  
 git commit -m "deploy: bundle production frontend into backend heroku tracking"  
 git subtree push --prefix backend heroku main
+```
+
+---
 
 **Tech Stack**
 
@@ -157,3 +187,10 @@ git subtree push --prefix backend heroku main
 - Authentication Utilities: bcrypt, jsonwebtoken, express-validator
 - API Validation Agent: Postman Client Testing Suite
 - Multipart File Handling: Multer Storage Middleware
+
+---
+
+## 📧 Contact & Support
+
+**Author:** Lutendo Matshidze  
+**GitHub:** [@LutendoLumina](https://github.com/LutendoLumina)

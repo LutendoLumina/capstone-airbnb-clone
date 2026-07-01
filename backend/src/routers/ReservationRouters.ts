@@ -20,14 +20,14 @@ class ReservationRouters {
       "/host",
       GlobalMiddleware.auth,
       (req: Request, res: Response, next: NextFunction) =>
-        ReservationController.getReservationsByHost(req, res, next)
+        ReservationController.getReservationsByHost(req, res, next),
     );
 
     this.router.get(
       "/user",
       GlobalMiddleware.auth,
       (req: Request, res: Response, next: NextFunction) =>
-        ReservationController.getReservationsByUser(req, res, next)
+        ReservationController.getReservationsByUser(req, res, next),
     );
   }
 
@@ -38,22 +38,22 @@ class ReservationRouters {
       ReservationValidator.createReservationValidator(),
       GlobalMiddleware.checkError,
       (req: Request, res: Response, next: NextFunction) =>
-        ReservationController.createReservation(req, res, next)
+        ReservationController.createReservation(req, res, next),
     );
   }
-
-  patchRoutes() {}
-
-  putRoutes() {}
 
   deleteRoutes() {
     this.router.delete(
       "/:id",
       GlobalMiddleware.auth,
       (req: Request, res: Response, next: NextFunction) =>
-        ReservationController.deleteReservation(req, res, next)
+        ReservationController.deleteReservation(req, res, next),
     );
   }
+
+  patchRoutes() {}
+
+  putRoutes() {}
 }
 
 export default new ReservationRouters().router;

@@ -20,7 +20,7 @@ export default function Header({ user, onLogout }) {
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
   const closeDropdown = () => setIsDropdownOpen(false);
 
-  // Fetch unique locations from backend
+  // Fetch locations from backend
   useEffect(() => {
     fetch("/api/listings/public")
       .then((res) => res.json())

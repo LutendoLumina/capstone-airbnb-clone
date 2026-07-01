@@ -16,8 +16,6 @@ class userRouters {
     this.deleteRoutes();
   }
 
-  getRoutes() {}
-
   postRoutes() {
     this.router.post(
       "/login",
@@ -27,6 +25,8 @@ class userRouters {
         UserController.login(req, res, next),
     );
   }
+
+  getRoutes() {}
 
   patchRoutes() {}
 

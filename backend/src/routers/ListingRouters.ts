@@ -45,36 +45,13 @@ class ListingRouters {
       GlobalMiddleware.auth,
       GlobalMiddleware.adminRole,
       new Utils().multer.array("images", 5),
-
-      // TEMPORARY DEBUG - remove after fixing
-      // (req: Request, res: Response, next: NextFunction) => {
-      //   console.log("FILES:", req.files);
-      //   console.log("FILE MIMETYPES:", (req.files as any[])?.map(f => f.mimetype));
-      //   console.log("BODY:", req.body);
-      //   next();
-      // },
-
-      (req: Request, res: Response, next: NextFunction) => {
-        if (typeof req.body.amenities === "string") {
-          try {
-            req.body.amenities = JSON.parse(req.body.amenities);
-          } catch (e) {
-            req.body.amenities = req.body.amenities
-              .split(",")
-              .map((s: string) => s.trim());
-          }
-        }
-        next();
-      },
-
+      ListingValidator.parseAmenities,
       ListingValidator.createListingValidator(),
       GlobalMiddleware.checkError,
       (req: Request, res: Response, next: NextFunction) =>
         ListingController.createListing(req, res, next),
     );
   }
-
-  patchRoutes() {}
 
   putRoutes() {
     this.router.put(
@@ -108,6 +85,8 @@ class ListingRouters {
         ListingController.deleteListing(req, res, next),
     );
   }
+
+  patchRoutes() {}
 }
 
 export default new ListingRouters().router;
