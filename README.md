@@ -4,7 +4,7 @@ A full-stack application of an Airbnb Clone build in MERN stack architecture. Th
 
 **Live Deployment**
 
-**Heroku Live Link:** [https://morning-cliffs-41967-82d70048a754.herokuapp.com]
+**Live Link:** [[https://morning-cliffs-41967-82d70048a754.herokuapp.com](https://capstone-airbnb-clone.onrender.com/)]
 
 ---
 
