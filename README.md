@@ -1,196 +1,480 @@
-**An Airbnb Clone**
+# Airbnb Clone
 
-A full-stack application of an Airbnb Clone build in MERN stack architecture. The application serves two distinct user roles: Administrators (who manage listings and property operations) and Customers (who search for locations, view property details, and manage reservations).
+A full-stack Airbnb-inspired web application built using the **MERN stack**. The application supports two user roles: **Administrators**, who manage property listings, and **Customers**, who browse accommodations, view property details, and manage reservations.
 
-**Live Deployment**
+## Live Demo
 
-**Live Link:** [https://capstone-airbnb-clone.onrender.com/]
+**Live Application:** https://capstone-airbnb-clone.onrender.com/
 
 ---
 
-**Project Structure**
+## Project Overview
 
+This project is a full-stack accommodation booking platform designed to demonstrate the development of a modern web application from frontend to backend and database.
+
+The application provides:
+
+- User authentication and authorization
+- Role-based access for administrators and customers
+- Property listing management
+- Property search and filtering
+- Property image uploads
+- Detailed accommodation pages
+- Reservation management
+- MongoDB data persistence
+- RESTful API integration
+
+---
+
+# Demo Login Credentials
+
+The application does not provide a public registration page. Demo accounts are pre-seeded in the MongoDB database so that the application can be tested immediately.
+
+### Administrator
+
+```text
+Email: admin@airbnb.com
+Password: password123
 ```
-CAPSTONE-PROJECT/  
-└── airbnb-clone/  
-├── backend/  
-│ ├── dist/ # Compiled JavaScript server code (via tsc)  
-│ ├── node_modules/ # Backend dependencies  
-│ ├── public/ # Production React frontend assets (Vite bundle)  
-│ ├── src/ # TypeScript source files (Controllers, Middleware, Models, Routes)  
-│ ├── .env # Environment configuration (ignored by git)  
-│ ├── package-lock.json  
-│ ├── package.json  
-│ ├── Procfile # Heroku deployment configuration  
-│ └── tsconfig.json # TypeScript configuration  
-├── frontend/  
-│ ├── dist/ # Local frontend production build  
-│ ├── node_modules/ # Frontend dependencies  
-│ ├── public/ # Static public assets  
-│ ├── src/ # React source code (Components, Pages, Hooks, Styles)  
-│ ├── eslint.config.js  
-│ ├── index.html  
-│ ├── package-lock.json  
-│ ├── package.json  
-│ └── vite.config.js # Vite bundler configuration  
-├── .gitignore  
+
+**Access:**
+- Administrator dashboard
+- View listings
+- Create listings
+- Edit listings
+- Delete listings
+- Manage property information
+- View reservations
+
+### Customer
+
+```text
+Email: user@airbnb.com
+Password: password123
+```
+
+**Access:**
+- Browse listings
+- Search and filter accommodations
+- View property details
+- Make reservations
+- View reservations
+- Cancel reservations
+
+> **Note:** These credentials are provided specifically for testing the live demo and do not contain any real user information.
+
+---
+
+## System Architecture
+
+The application follows a three-tier architecture:
+
+```text
+React / Vite Frontend
+        ↕
+Node.js / Express REST API
+        ↕
+MongoDB Atlas Database
+```
+
+The React frontend communicates with the Express backend through REST APIs, while the backend handles authentication, business logic, file uploads, reservations, and database operations.
+
+---
+
+## Project Structure
+
+```text
+capstone-airbnb-clone/
+│
+├── backend/
+│   ├── dist/              # Compiled TypeScript
+│   ├── public/            # Production React frontend
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── enviroments/
+│   │   ├── middlewares/
+│   │   ├── models/
+│   │   ├── routers/
+│   │   ├── utils/
+│   │   ├── validators/
+│   │   └── server.ts
+│   ├── package.json
+│   ├── package-lock.json
+│   └── tsconfig.json
+│
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── hooks/
+│   │   └── styles/
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── index.html
+│   └── vite.config.js
+│
+├── .gitignore
 └── README.md
 ```
 
 ---
 
-**System Architecture & Data Flow**
+# Features
 
-Data flows seamlessly across the three tiers of the application:
+## 1. User Authentication & Authorization
 
-Frontend (React/Vite) ↔ Backend API (Node/TypeScript) ↔ Database Layer (MongoDB Atlas)
-
----
-
-**Features & Progress Completed**
-
-**1\. Frontend Phase (React & Vite UI)**
-
-- **Top Header Navigation & Dynamic Menu:** Features a responsive layout with branding, location search dropdown, and a role-aware profile action toggle that displays tailored navigation options (e.g., Log In/Sign Up for guests vs View Listings/Create Listing for admins) based on active session states.
-- **Authentication UI Gate:** Client-side form handling and validation covering correct email formats and password bounds before routing users via mock or live server handshakes.
-- **Create & Edit Listing Modules:** Detailed property entry capturing baseline metrics (titles, configurations, max guests), variable fee metrics (cleaning/service fees, weekly discounts), checkable feature arrays, and binary multipart streams via HTML5 FormData for real-time filesystem image uploads.
-- **View Listings & Interactive Inventory Cards:** Dynamic, responsive card layouts that map properties into JSX blocks using unique MongoDB trackers (key={listing.\_id}) and display sanitized image paths served directly from active host environments.
-- **Location Page & Accommodation Finder:** Features filter chips (Free cancellation, Price, Instant Book) and a city-based location selection dropdown populated dynamically by pulling distinct values from the public listings API.
-- **Location Details View:** Implements a rich image gallery grid (1 large main photo + 4 stacked smaller thumbnails), an amenities checklist grid, category-specific breakdown reviews (cleanliness, communication, etc.), and a sticky cost calculator that dynamically updates totals in real time based on selected calendar dates and guest counts.
-- **User Reservations Portal:** Dedicated protected panel (/my-reservations) rendering an interactive tabular layout of a user's bookings with structural color-coded status badges (confirmed, pending, cancelled) and instant cancellation triggers.
-- **Client-Side Routing & Session Persistence:** Integrated react-router-dom (v6+) handling history, declarative path protection guards, and immediate startup recovery from localStorage to safeguard active user sessions against data loss during hard page refreshes.
+- User login
+- JWT-based authentication
+- Password hashing using bcrypt
+- Persistent user sessions using local storage
+- Role-based authorization for administrators and customers
+- Protected routes and API endpoints
+- Automatic redirection based on user roles
 
 ---
 
-**2\. Backend Server Layer (Node.js & TypeScript)**
+## 2. Property Listings
 
-- **Object-Oriented Lifecycle:** Modular Server class framework handling separate app configurations, endpoint routing, and global exception interceptors.
-- **Operational Health Checks:** Live /api/health testing path tracking clean backend runtime execution.
-- **Dynamic Environment Injection:** Fixed module loading race conditions by transitioning plain configuration objects into executable Arrow Functions to defer variable lookups until after the application bootstrapper loads root .env values.
-- **DNS Resolution Override:** Bypassed local network ISP firewalls and SRV lookup drop failures (querySrv ECONNREFUSED) by coupling Node's native dns module with Google Public `DNS (8.8.8.8 / 8.8.4.4)` at application boot-up.
-- **Secure Authentication Pipeline:**  
-   \- Generates secure un-brute-forceable JWT signing using 32-byte hexadecimal random keys via Node's native crypto module.  
-   \- Asynchronous password hashing and mathematical comparisons using bcrypt.  
-   \- Structured token generation pipeline assigning role scopes (admin vs user) with automated error catching via express-validator and GlobalMiddleware role guards.
-- **Advanced Multipart Accommodation Listing Engine:** Deploys local multer.diskStorage stream pipelines to handle multi-file uploads with timestamped hash file naming into static folders (src/uploads/images), coupled with custom inline middleware to decode raw text layout brackets back into native string arrays before verification.
-- **RESTful CRUD Operations:** Handles public listing streams with chronological sorting (-1), admin deletion routes via Mongoose context handlers (findByIdAndDelete), and flexible partial update paths (PUT) via state spread layers and .optional() schema filters to allow overwriting standalone attributes without destroying existing values.
-- **Multi-Channel Reservation Tracking Engine:** Manages automated validation checkpoints (ReservationValidator) enforcing precise ISO 8601 timeline checks and cross-collection verification sweeps before processing bookings. Provides dual-channel optimization: a Guest Stream filtering specific user tokens and a Host Dashboard View tracking multi-user check-ins.
+Administrators can manage accommodation listings, including:
 
----
-
-**3\. Database & Schema Layer (Mongoose & MongoDB Atlas)**
-
-- **Unified Identity Architecture:** Single-collection Mongoose data schema mapping authentication privileges (admin vs customer), tracking login parameters, and enforcing distinct user validation properties.
-- **Property Blueprint Schema:** Flattened database model mapping parameters directly to incoming form payloads (pricing arrays, configuration metrics, amenities fields).
-- **Strict Interface Compilation:** Integrated comprehensive Node/TypeScript interface abstractions guarding compile-time data validity across all properties and schemas.
-- **Relational Reference Mapping:** Implements structural document tracking linking unique occupant profiles (users) directly to active properties (Accommodation references) while managing strict temporal fields (start_date, end_date) and total price metrics.
-- **Dual User Seeding:** Extended automated database seed scripts (seedUser.ts) to easily provision both an administrator account (<admin@airbnb.com>) and a regular customer account (<user@airbnb.com>) with pre-hashed passwords inside cloud clusters.
+- Creating new listings
+- Editing existing listings
+- Deleting listings
+- Uploading multiple property images
+- Property descriptions
+- Guest capacity
+- Property configuration
+- Pricing information
+- Cleaning and service fees
+- Weekly discounts
+- Amenities
 
 ---
 
-**Administrative Authentication & Seeding**
+## 3. Property Search & Filtering
 
-To safeguard administrative privileges, accounts are pre-seeded directly into the MongoDB Atlas cluster rather than exposing public registration pipelines.
+Customers can:
 
-**1\. Database Configuration**
+- Browse available properties
+- Search by location
+- View property details
+- Filter properties
+- View available amenities
+- View property images
+- Compare accommodation options
 
-Ensure your local backend/.env file is active and configured correctly. Note: This file is explicitly blocked by .gitignore to prevent credential exposure:
+Available filtering options include:
 
-```bash
-PORT=3000  
-DEV_DB_URI=mongodb+srv://&lt;username&gt;:&lt;password&gt;@cluster.mongodb.net/airbnb  
-JWT_SECRET=your_cryptographic_secret_key_here
+- Free cancellation
+- Price
+- Instant booking
+- Location
+
+---
+
+## 4. Property Details
+
+Each accommodation has a dedicated details page containing:
+
+- Image gallery
+- Property information
+- Amenities
+- Guest capacity
+- Pricing
+- Reviews and ratings
+- Booking date selection
+- Guest selection
+- Dynamic reservation cost calculation
+
+---
+
+## 5. Reservation Management
+
+Customers can:
+
+- Create reservations
+- View their reservations
+- View reservation details
+- Cancel reservations
+- Track reservation status
+
+Administrators can view reservation information associated with their properties.
+
+---
+
+## 6. RESTful Backend API
+
+The backend is built using **Node.js, Express and TypeScript**.
+
+It provides API endpoints for:
+
+- Authentication
+- Users
+- Property listings
+- Reservations
+- File uploads
+- Health checks
+
+The backend follows a modular structure with separate controllers, routers, middleware, models and validators.
+
+---
+
+## Security & Validation
+
+The application includes several security and validation mechanisms:
+
+- JWT authentication
+- Password hashing with bcrypt
+- Role-based authorization
+- Protected API routes
+- Request validation
+- Environment variables for sensitive configuration
+- `.env` excluded from version control
+- Global error handling
+- Multipart file validation
+
+---
+
+# Database
+
+The application uses **MongoDB Atlas** with **Mongoose** for database management.
+
+### Main data models
+
+```text
+User
+ ├── Authentication information
+ ├── Role
+ └── Account information
+
+Accommodation
+ ├── Property information
+ ├── Pricing
+ ├── Amenities
+ └── Images
+
+Reservation
+ ├── User
+ ├── Accommodation
+ ├── Start date
+ ├── End date
+ └── Total price
 ```
 
-**2\. Seeding the Administrator & User Accounts**
-
-To instantly instantiate both the administrator and regular user profiles with securely hashed passwords inside your cloud cluster, execute the standalone database seed runner:
-
-\# Navigate to the backend directory  
-```bash
-cd backend  
-<br/>\# Execute the TypeScript seeder script  
-npx ts-node src/seedUser.ts
-```
-
-**3\. Credentials for Testing**
-
-**Admin Account**:  
-\- Email: <admin@airbnb.com>  
-\- Password: password123  
-\- Redirects to: /listings (Admin Dashboard)
-
-**Regular User Account:**
-\- Email: <user@airbnb.com>  
-\- Password: password123  
-\- Redirects to: / (Home Page)
+Relationships between users, accommodations and reservations are handled through MongoDB document references.
 
 ---
 
-**Heroku Deployment Architecture**
+# API Testing
 
-The application uses a monorepo-style embedded compilation approach to serve both the React frontend and the Express/TypeScript API together from a single Heroku Web Dyno container.
+The REST API was tested using **Postman**.
 
-**1\. Embedded Architecture Overview**
+Testing covered areas such as:
 
-When deploying, the React frontend is compiled locally into optimized static assets. These production-ready bundles are integrated into the backend's public/ directory so Express can act as a web server layer routing static web pages alongside dynamic API tracks.
+- Authentication
+- User operations
+- Listing CRUD operations
+- Reservation operations
+- Validation
+- Protected endpoints
+- Error handling
 
-```bash
-backend/  
-├── dist/ <-- Compiled JavaScript Server Code (via tsc)  
-├── public/ <-- Production React Frontend Assets (Vite Bundle)  
-│ ├── index.html  
-│ └── assets/  
-├── src/  
-└── package.json
+---
+
+# Environment Configuration
+
+The backend uses environment variables for configuration.
+
+Create a `.env` file inside the `backend` directory:
+
+```env
+PORT=3000
+
+DEV_DB_URI=your_mongodb_connection_string
+DEV_JWT_ACCESS_TOKEN_SECRET_KEY=your_jwt_secret
+
+PROD_DB_URI=your_production_mongodb_connection_string
+PROD_JWT_ACCESS_TOKEN_SECRET_KEY=your_production_jwt_secret
 ```
 
-**2\. Heroku Core Environment Configurations**
+> **Note:** Never commit your `.env` file or expose database credentials and JWT secrets publicly.
 
-Heroku handles server instantiation using dynamic parameters. Ensure your target app is provisioned with the production environment values matching your backend logic names:
+---
+
+# Running the Project Locally
+
+## Backend
+
+Navigate to the backend:
 
 ```bash
-heroku config:set PROD_DB_URI=your_production_mongodb_connection_string --app your-app-name  
-heroku config:set PROD_JWT_ACCESS_TOKEN_SECRET_KEY=your_production_jwt_secret_key --app your-app-name
+cd backend
 ```
 
-**3\. Build & Deployment Lifecycle**
-
-Because the deployment pipelines use a Git Subtree wrapper to keep the deployment container light, deployment requires bundling the frontend compilation before pushing changes.
-
-- Compile Frontend: Navigate to the frontend directory and build the production distribution folder:
+Install dependencies:
 
 ```bash
-cd frontend  
+npm install
+```
+
+Run the development server:
+
+```bash
+npm run dev
+```
+
+Build the TypeScript backend:
+
+```bash
 npm run build
 ```
 
-- Synchronize Build: Move the generated dist/ contents directly into your backend/public/ directory.
-- Deploy Subtree: Commit all modifications from your root repository root folder and push the isolated backend folder directly up to Heroku:
+Start the compiled backend:
 
 ```bash
-git add .  
-git commit -m "deploy: bundle production frontend into backend heroku tracking"  
-git subtree push --prefix backend heroku main
+npm start
 ```
 
 ---
 
-**Tech Stack**
+## Frontend
 
-- Frontend UI Engine: React.js via Vite compilation
-- Browser State Controller: react-router-dom (v6+)
-- Icon UI Packs: react-icons (FontAwesome, Ionicons)
-- Design Implementation: Pure Vanilla CSS
-- Database Object Modeling: Mongoose ORM / MongoDB Atlas
-- Server Runtime: Node.js + TypeScript Compilation
-- Authentication Utilities: bcrypt, jsonwebtoken, express-validator
-- API Validation Agent: Postman Client Testing Suite
-- Multipart File Handling: Multer Storage Middleware
+Open another terminal and navigate to the frontend:
+
+```bash
+cd frontend
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the development server:
+
+```bash
+npm run dev
+```
+
+The frontend can then be accessed through the local Vite development URL shown in the terminal.
 
 ---
 
-## 📧 Contact & Support
+# 🌐 Deployment
 
-**Author:** Lutendo Matshidze  
-**GitHub:** [@LutendoLumina](https://github.com/LutendoLumina)
+The application is currently deployed using **Render**.
+
+### Production Architecture
+
+```text
+                    Render
+                      │
+          ┌───────────┴───────────┐
+          │                       │
+     React Frontend          Express API
+          │                       │
+          └───────────┬───────────┘
+                      │
+                MongoDB Atlas
+```
+
+The production React frontend is served through the Express backend.
+
+### Production Build
+
+The backend is compiled from TypeScript:
+
+```bash
+npm run build
+```
+
+Render installs the required development dependencies during the build process:
+
+```bash
+npm install --include=dev
+```
+
+The compiled application is then started using:
+
+```bash
+npm start
+```
+
+---
+
+# Tech Stack
+
+### Frontend
+
+- React.js
+- Vite
+- JavaScript
+- React Router
+- Vanilla CSS
+- React Icons
+
+### Backend
+
+- Node.js
+- Express.js
+- TypeScript
+- REST APIs
+- JWT
+- bcrypt
+- express-validator
+- Multer
+
+### Database
+
+- MongoDB
+- MongoDB Atlas
+- Mongoose
+
+### Development & Testing
+
+- Git
+- GitHub
+- Postman
+- VS Code
+- npm
+
+### Deployment
+
+- Render
+- MongoDB Atlas
+
+---
+
+# 📚 What I Learned
+
+Through this project, I gained practical experience with:
+
+- Building a full-stack MERN application
+- Designing RESTful APIs
+- Connecting a React frontend to a backend API
+- Working with MongoDB and Mongoose
+- Implementing JWT authentication
+- Implementing role-based authorization
+- Handling file uploads with Multer
+- Validating API requests
+- Managing environment variables
+- Structuring a TypeScript backend
+- Testing APIs using Postman
+- Deploying a full-stack application to the cloud
+- Debugging production deployment issues
+
+---
+
+# Author
+
+**Lutendo Matshidze**
+
+GitHub: [@LutendoLumina](https://github.com/LutendoLumina)
+
+---
+
+## Project
+
+If you found this project useful or interesting, feel free to explore the repository and the live application.
